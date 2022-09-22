@@ -1,38 +1,62 @@
-.App {
-  text-align: center;
+html, body, #root {
+  font: 0.9rem sans-serif;
+  background: #d4d4d4;
+  color: #252525;
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+  margin: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.main-container {
+  height: 100vh;
+  width: 100vw;
   display: flex;
   flex-direction: column;
+  /* justify-content: space-between; */
+}
+
+#logo {
+  width: 5rem;
+  margin: 10px;
+  position: absolute;
+  z-index: 1;
+}
+
+.add-button-div {
+  display: flex;
+  align-self: flex-end;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  margin: 10px;
+  width: 4rem;
+  height: 4rem;
+  position: absolute;
+  z-index: 1;
 }
 
-.App-link {
-  color: #61dafb;
+.new-campground-container {
+  position:absolute;
+  display: flex;
+  padding: 3rem;
+  bottom: 10%;
+  left: 10%;
+  right: 10%;
+  align-items: center;
+  align-self: center;
+
+  background-color: white;
+  box-shadow: 1px 2px 20px 10px rgba(50, 50, 50, 0.2);
+  height: 70%;
+  border-radius: 50px;
+  z-index: 3;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+
+/* @media only screen and (max-width: 600px) {
+  .search {
+      padding: 20px 15%;
   }
-  to {
-    transform: rotate(360deg);
+
+  .city {
+      padding: 40px 20%;
   }
-}
+} */
