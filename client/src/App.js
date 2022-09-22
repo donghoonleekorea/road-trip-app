@@ -6,7 +6,7 @@ function App() {
 
   return (
     <div>
-      {/* <NewCampsite></NewCampsite> */}
+      <NewCampsite></NewCampsite>
       <Map></Map>
     </div>
   );
