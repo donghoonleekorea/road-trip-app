@@ -1,7 +1,23 @@
+import FileInput from "./FileInput.component";
+import { addNewCampground } from "../Services";
+
 function NewCampsite () {
 
-  const submitHandler = () => {
-
+  const submitHandler = async (e) => {
+    try {
+      e.preventDefault();
+      console.log(e);
+      const newCampround = {
+        name: e.target[0].value,
+        description: e.target[1].value,
+        location: e.target[2].value,
+        image: e.target[3].value
+      }
+      console.log(newCampround);
+      addNewCampground(newCampround);
+    } catch (err) {
+      console.log('Error from newCampsite.component/submitHandler');
+    }
   };
 
   return (
@@ -16,12 +32,11 @@ function NewCampsite () {
         <p className="input-label">LOCATION</p>
         <input required={true}></input>
         <p className="input-label">IMAGES</p>
-        <input type='file'></input>
+        <FileInput></FileInput>
         <button>Create</button>
       </form>
     </div>
   )
-
 }
 
 export default NewCampsite;

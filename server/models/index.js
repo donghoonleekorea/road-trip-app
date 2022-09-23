@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+require('dotenv').config();
 
 const settings = {
   useNewUrlParser: true,
@@ -14,7 +15,7 @@ db.once('open', () => {
   console.log('Connected to DB');
 });
 
-mongoose.connect('mongodb+srv://user:1234@cluster0.z2worsj.mongodb.net/RoadTrip?retryWrites=true&w=majority', settings);
+mongoose.connect(process.env.MONGO_DB, settings);
 
 module.exports = mongoose;
 

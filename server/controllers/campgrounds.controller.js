@@ -29,7 +29,7 @@ exports.postCampground = async (req, res) => {
     console.log('All good from controller - postCampround');
     campground.create(req.body);
     res.status(201);
-    res.send('Successfully added');
+    res.send(req.body);
   } catch (err) {
     console.log('Error from controller - postCampround');
     res.status(400);
