@@ -1,8 +1,7 @@
 import './LocationInput.styles.css';
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import mapboxgl from '!mapbox-gl';
-// import ReactMapGL, { Marker } from 'react-map-gl';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiYWZlcnJhcmlmaXJtbyIsImEiOiJjaXVyYzlqYXYwMDBqMnptczczdjFsZ2RxIn0.zUalw0sjfenPlLL_HCMpTw';
 
@@ -10,8 +9,6 @@ const LocationInput = ({ setCoordinates }) => {
 
   const mapContainer = useRef(null);
   const map = useRef(null);
-
-  // const[coordinates, setCoordinates] = useState([]);
 
   const pinCoordinates = useRef();
   
@@ -34,18 +31,15 @@ const LocationInput = ({ setCoordinates }) => {
         },
         trackUserLocation: true, // track user's movements and display changes on map
         showUserHeading: true // pointer of user's direction
-      }))
-      new mapboxgl.NavigationControl();
+      }));
 
-      // on mousemove get coordinates
-      map.current.on('mousemove', (e) => {
-        // console.log(e.lngLat);
-        pinCoordinates.current = e.lngLat;
-        // console.log(pinCoordinates.current.lat);
-        // const features = map.current.queryRenderedFeatures(e.point);
-        // console.log(features);
-      });
+    // new mapboxgl.NavigationControl();
+
+    // on mousemove get coordinates
+    map.current.on('mousemove', (e) => {
+      pinCoordinates.current = e.lngLat;
     });
+  });
 
     const getCoordinates = async () => {
       // setCoordinates([pinCoordinates.current.lng, pinCoordinates.current.lat]);
@@ -74,7 +68,7 @@ const LocationInput = ({ setCoordinates }) => {
     <div className='set-location-map-container'>
       <div ref={mapContainer} className='add-location-map' onClick={getCoordinates}>
       </div>
-    </div>
+      </div>
   )
 }
 

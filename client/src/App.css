@@ -2,9 +2,12 @@ html, body, #root {
   font: 0.9rem sans-serif;
   background: #d4d4d4;
   color: #252525;
-  height: 100vh;
-  height: calc(var(--vh, 1vh) * 100);
   margin: 0;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
 }
 
 .main-container {
@@ -12,11 +15,12 @@ html, body, #root {
   width: 100vw;
   display: flex;
   flex-direction: column;
-  /* justify-content: space-between; */
+  align-content: space-around;
 }
 
 #logo {
   width: 5rem;
+  height: 5rem;
   margin: 10px;
   position: absolute;
   z-index: 1;
@@ -30,7 +34,36 @@ html, body, #root {
   width: 4rem;
   height: 4rem;
   position: absolute;
+  bottom: 4%;
   z-index: 1;
+}
+
+#add-button {
+  fill: orangered;
+  width: auto;
+  height: auto;
+}
+
+.close-button-div {
+  display: flex;
+  align-self: flex-start;
+  align-items: center;
+  margin: 8px;
+  width: 2rem;
+  height: 2rem;
+}
+
+h2{
+  margin-top: 0;
+}
+
+#close-button {
+  fill: orangered;
+  rotate: 45deg;
+  position: relative;
+  align-self: center;
+  height: auto;
+  width: auto;
 }
 
 .new-campground-container {
@@ -42,7 +75,7 @@ html, body, #root {
   right: 10%;
   align-items: center;
   align-self: center;
-
+  justify-content: space-between;
   background-color: white;
   box-shadow: 1px 2px 20px 10px rgba(50, 50, 50, 0.2);
   height: 70%;
@@ -51,12 +84,8 @@ html, body, #root {
 }
 
 
-/* @media only screen and (max-width: 600px) {
-  .search {
-      padding: 20px 15%;
+@media only screen and (max-width: 400px) {
+  .add-button-div {
+    align-self: center;
   }
-
-  .city {
-      padding: 40px 20%;
-  }
-} */
+}

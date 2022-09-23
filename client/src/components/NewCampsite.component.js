@@ -4,14 +4,14 @@ import { addNewCampground } from '../Services';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { useState } from "react";
 import storage from '../firebase';
+import { ReactComponent as CloseButton } from '../assets/add-button.svg';
 
-function NewCampsite () {
+function NewCampsite ({ setModal }) {
 
   const [imageUpload, setImageUpload] = useState(null);
   const [coordinates, setCoordinates] = useState([]);
   
   const uploadFile = async (e) => {
-    // e.preventDefault();
     if (imageUpload == null) return;
     const imageRef = ref(storage, `images/${imageUpload.name}`);
     // uploadBytes(imageRef, imageUpload).then((snapshot) => {
@@ -38,8 +38,8 @@ function NewCampsite () {
       addNewCampground(newCampround);
       e.target[0].value = '';
       e.target[1].value = '';
-      e.target[2].value = '';
-      e.target[3].value = '';
+      e.target[4].value = '';
+      setModal(false);
     } catch (err) {
       console.log('Error from newCampsite.component/submitHandler');
     }
@@ -47,9 +47,8 @@ function NewCampsite () {
 
   return (
     <div className="new-campground-container">
-    {/* <button id="close">X</button> */}
       <form type='submit' onSubmit={submitHandler}>
-        <h3>Add a new campground</h3>
+        <h2>Add a new campground</h2>
         <p className="input-label">NAME</p>
         <input placeholder='Insert a name for this campground' required={true}></input>
         <p className="input-label">DESCRIPTION</p>
@@ -60,8 +59,11 @@ function NewCampsite () {
         <FileInput setImageUpload={setImageUpload} required={true}></FileInput> 
         <button>Create</button>
       </form>
+      <div className='close-button-div'>
+        <CloseButton type='button' id='close-button' onClick={() => {setModal(false)}}></CloseButton>
+      </div>
     </div>
   )
 }
-// onSubmit={uploadFile}
+
 export default NewCampsite;
