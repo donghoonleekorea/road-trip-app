@@ -7,8 +7,8 @@ import storage from '../firebase';
 
 function NewCampsite () {
 
-  const [imageURL, setImageURL] = useState('');
   const [imageUpload, setImageUpload] = useState(null);
+  const [coordinates, setCoordinates] = useState([]);
   
   const uploadFile = async (e) => {
     // e.preventDefault();
@@ -21,23 +21,17 @@ function NewCampsite () {
     // });
     const snapshot = await uploadBytes(imageRef, imageUpload);
     const url = await getDownloadURL(snapshot.ref);
-    // setImageURL(url);
     return url;
-
-    // console.log('imageUpload: ', imageUpload);
   };
-
-  
 
   const submitHandler = async (e) => {
     try {
       e.preventDefault();
-      
       const url = await uploadFile();
       const newCampround = {
         name: e.target[0].value,
         description: e.target[1].value,
-        location: 'ffff',
+        location: {longitude: coordinates[0], latitude: coordinates[1]},
         image: url
       }
       console.log(newCampround);
@@ -61,10 +55,9 @@ function NewCampsite () {
         <p className="input-label">DESCRIPTION</p>
         <input type='text' placeholder='Insert a description for this location' required={true}></input>
         <p className="input-label">LOCATION</p>
-        <LocationInput></LocationInput>
-        {/* <input required={true}></input> */}
+        <LocationInput setCoordinates={setCoordinates} required={true}></LocationInput>
         <p className="input-label">IMAGE</p>
-        <FileInput setImageUpload={setImageUpload} setImageURL={setImageURL}></FileInput> 
+        <FileInput setImageUpload={setImageUpload} required={true}></FileInput> 
         <button>Create</button>
       </form>
     </div>
