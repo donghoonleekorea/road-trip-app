@@ -6,6 +6,8 @@ import { useState } from "react";
 import storage from '../firebase';
 import { ReactComponent as CloseButton } from '../assets/add-button.svg';
 
+
+
 function NewCampsite ({ setModal }) {
 
   const [imageUpload, setImageUpload] = useState(null);
