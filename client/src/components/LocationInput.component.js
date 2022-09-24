@@ -1,5 +1,5 @@
 import './LocationInput.styles.css';
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import mapboxgl from '!mapbox-gl';
 
@@ -9,27 +9,26 @@ const LocationInput = ({ setCoordinates }) => {
 
   const mapContainer = useRef(null);
   const map = useRef(null);
-
-  const pinCoordinates = useRef();
-  const [marker, setMarker] = useState([2, 41.45]);
-  
   
   useEffect(() => {
+
     if (map.current) return; // initialize map only once
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/outdoors-v11',
-      // center: [lng, lat],
-      // zoom: zoom
       center: [2, 41.45],
       zoom: 5.5,
     });
 
+    // define properties of the draggable marker
+    var pin = document.createElement('div');
+	  pin.className = 'marker';
+
     // create a draggable marker on the map
-    const pin = new mapboxgl.Marker({draggable: true})
+    const marker = new mapboxgl.Marker(pin, {draggable: true})
       .setLngLat([2, 41.45])
       .addTo(map.current);
-    setMarker(pin);
+    // marker.className = 'black-pin';
 
     // go to user's location by clicking on the map's top-right button
     map.current.addControl(
@@ -41,37 +40,18 @@ const LocationInput = ({ setCoordinates }) => {
         showUserHeading: true // pointer of user's direction
       }));
 
-    // new mapboxgl.NavigationControl();
-
-    // on mousemove get coordinates
-    // map.current.on('mousemove', (e) => {
-    //   pinCoordinates.current = e.lngLat;
-    //   console.log(pinCoordinates);
-    // });
-    // marker.on('dragend', getCoordinates());
-  }, []);
-
-    // const getCoordinates = async () => {
-    //   // setCoordinates([pinCoordinates.current.lng, pinCoordinates.current.lat]);
-    //   console.log([pinCoordinates.current.lng, pinCoordinates.current.lat]);
-    //   // const el = document.createElement('div');
-    //   // el.className = 'marker';
-    //   // new mapboxgl.Marker(el)
-    //   //   .setLngLat([pinCoordinates.current.lng, pinCoordinates.current.lat])
-    //   //   .addTo(map.current);
-    //   setCoordinates([pinCoordinates.current.lng, pinCoordinates.current.lat])
-    //   console.log([pinCoordinates.current.lng, pinCoordinates.current.lat]);
-    //   return [pinCoordinates.current.lng, pinCoordinates.current.lat];
-    // }
-
     // get the coordinates from the position where the pin was dragged to
-    // const getCoordinates = () => {
-    //   const coordinates = marker.getLngLat();
-    //   setCoordinates([coordinates.lng, coordinates.lat]);
-    //   console.log([coordinates.lng, coordinates.lat]);
-    //   return [coordinates.lng, coordinates.lat]
-    // }; 
+    const getCoordinates = () => {
+      const coordinates = marker.getLngLat();
+      setCoordinates([coordinates.lng, coordinates.lat]);
+      console.log([coordinates.lng, coordinates.lat]);
+    }; 
 
+    console.log(marker.getLngLat());
+    
+    marker.on('dragend', getCoordinates);
+
+  }, []);
 
   return (
     <div className='set-location-map-container'>

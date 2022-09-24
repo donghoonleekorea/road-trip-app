@@ -11,16 +11,11 @@ import { ReactComponent as CloseButton } from '../assets/add-button.svg';
 function NewCampsite ({ setModal }) {
 
   const [imageUpload, setImageUpload] = useState(null);
-  const [coordinates, setCoordinates] = useState([]);
+  const [coordinates, setCoordinates] = useState([2, 41.45]);
   
   const uploadFile = async (e) => {
     if (imageUpload == null) return;
     const imageRef = ref(storage, `images/${imageUpload.name}`);
-    // uploadBytes(imageRef, imageUpload).then((snapshot) => {
-    //   getDownloadURL(snapshot.ref).then((url) => {
-    //     setImageURL(url);
-    //   });
-    // });
     const snapshot = await uploadBytes(imageRef, imageUpload);
     const url = await getDownloadURL(snapshot.ref);
     return url;

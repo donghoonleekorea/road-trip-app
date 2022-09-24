@@ -6,7 +6,7 @@ import { getAllCamprounds } from '../Services';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiYWZlcnJhcmlmaXJtbyIsImEiOiJjaXVyYzlqYXYwMDBqMnptczczdjFsZ2RxIn0.zUalw0sjfenPlLL_HCMpTw';
 
-function Map () {
+function Map ({ modalState }) {
   
   const mapContainer = useRef(null);
   const map = useRef(null);
@@ -16,20 +16,32 @@ function Map () {
   useEffect(() => {
     getAllCamprounds()
     .then((response) => {setCampgrounds(response)})
-  }, [])
+  }, [modalState])
 
   useEffect(() => {
     
-    // renders a pin for each campground
+    // renders a maker for each campground
     campgrounds.map((campground) => {
       const longitude = JSON.parse(campground.location.longitude);
       const latitude = JSON.parse(campground.location.latitude);
+      const image = campground.image;
+      const name = campground.name;
+      const description = campground.description;
 
       const pin = document.createElement('div');
       pin.className = 'marker';
 
       new mapboxgl.Marker(pin)
         .setLngLat([longitude, latitude])
+        // add a pop-up for each marker
+        .setPopup(
+          new mapboxgl.Popup({ offset: 30 }) // add popups
+            .setHTML(
+              `<h3>${name}</h3>
+              <p>${description}</p>
+              <img src="${image}">`
+            )
+        )
         .addTo(map.current);
     });
     
@@ -68,7 +80,7 @@ function Map () {
         // Draw an arrow next to the location dot to indicate which direction the device is heading.
         showUserHeading: true
       }))
-      new mapboxgl.NavigationControl();
+      // new mapboxgl.NavigationControl();
   }, [campgrounds]);
 
   return (
