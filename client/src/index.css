@@ -14,5 +14,5 @@ code {
 
 /* needed fot map to render correctly */
 .map-container {
-  height: 100vh;
+  height: 90vh;
 }

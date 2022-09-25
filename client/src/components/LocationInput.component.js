@@ -36,8 +36,8 @@ const LocationInput = ({ setCoordinates }) => {
         positionOptions: {
           enableHighAccuracy: true
         },
-        trackUserLocation: true, // track user's movements and display changes on map
-        showUserHeading: true // pointer of user's direction
+        trackUserLocation: true,
+        showUserHeading: true
       }));
 
     // get the coordinates from the position where the pin was dragged to
@@ -46,12 +46,10 @@ const LocationInput = ({ setCoordinates }) => {
       setCoordinates([coordinates.lng, coordinates.lat]);
       console.log([coordinates.lng, coordinates.lat]);
     }; 
-
-    console.log(marker.getLngLat());
     
     marker.on('dragend', getCoordinates);
 
-  }, []);
+  }, [setCoordinates]);
 
   return (
     <div className='set-location-map-container'>

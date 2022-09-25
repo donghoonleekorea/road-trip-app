@@ -23,7 +23,6 @@
   z-index: 1;
 }
 
-/* check this! */
 .pin {
   background-image: url('../assets/location-pin.png');
   position: absolute;

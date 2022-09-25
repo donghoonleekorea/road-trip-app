@@ -17,12 +17,12 @@ function Map ({ modalState }) {
 
   useEffect(() => {
     getAllCamprounds()
-    .then((response) => {setCampgrounds(response)})
-  }, [modalState])
+    .then((response) => {setCampgrounds(response)});
+  }, [modalState]);
 
   useEffect(() => {
     
-    // renders a maker for each campground
+    // renders a marker for each campground
     campgrounds.map((campground) => {
       const longitude = JSON.parse(campground.location.longitude);
       const latitude = JSON.parse(campground.location.latitude);
@@ -57,12 +57,13 @@ function Map ({ modalState }) {
     });
 
     // add search bar to the map 
-    map.current.addControl(
-      new MapboxGeocoder({
+    const geocoder = new MapboxGeocoder({
         accessToken: mapboxgl.accessToken,
         mapboxgl: mapboxgl,
         marker: false,
-      }));
+      });
+    
+    document.getElementById('geocoder').appendChild(geocoder.onAdd(map.current));
 
     // custom styles inside switcher
     const styles = [
@@ -104,12 +105,11 @@ function Map ({ modalState }) {
       // Draw an arrow next to the location dot to indicate which direction the device is heading.
       showUserHeading: true
     }));
-    
-    
   }, [campgrounds]);
   
   return (
     <div className='main-container'>
+    <div id="geocoder" className="geocoder"></div>
       <div ref={mapContainer} className="map-container" />
     </div>
   )

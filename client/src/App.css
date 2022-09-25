@@ -5,6 +5,40 @@ html, body, #root {
   margin: 0;
 }
 
+#heading {
+  font-family: 'Gill Sans';
+  margin-left: 1rem;
+}
+
+h2 {margin:0}
+
+.header {
+  width: 100vw;
+  display: flex;
+  height: 4.5rem;
+  background-color: #fffdfd;
+  box-shadow: 1px 2px 20px 10px rgba(50, 50, 50, 0.2);
+  align-items: center;
+}
+
+.geocoder {
+  position: absolute;
+  align-self:flex-end;
+  margin-right: 3rem;
+  top: 0.9rem;
+}
+
+.mapboxgl-ctrl-geocoder {
+  height: 2.8rem;
+  display: flex;
+  align-items: center;
+}
+
+.mapboxgl-ctrl-geocoder--icon-search {
+  margin-top: 2px;
+  height: 10;
+}
+
 .main {
   display: flex;
   flex-direction: column;
@@ -19,11 +53,12 @@ html, body, #root {
 }
 
 #logo {
-  width: 6rem;
-  height: 6rem;
-  margin: 5px;
-  position: absolute;
+  width: 8vh;
+  height: 8vh;
+  margin-left: 3vw;
+  /* position: absolute; */
   z-index: 1;
+  align-self: center;
 }
 
 .add-button-div {
@@ -101,6 +136,10 @@ img {
 .mapboxgl-ctrl-scale {
   background-color: rgba(227, 227, 227, 0.605);
   border-width: 1.5px;
+}
+
+.mapboxgl-ctrl-logo {
+  display: none !important;
 }
 
 @media only screen and (max-width: 400px) {
