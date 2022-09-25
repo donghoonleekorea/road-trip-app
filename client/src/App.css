@@ -19,9 +19,9 @@ html, body, #root {
 }
 
 #logo {
-  width: 5rem;
-  height: 5rem;
-  margin: 10px;
+  width: 6rem;
+  height: 6rem;
+  margin: 5px;
   position: absolute;
   z-index: 1;
 }
@@ -39,12 +39,14 @@ html, body, #root {
 }
 
 #add-button {
-  fill: orangered;
+  fill: rgb(2, 7, 71);
+  /* #31339e */
   width: auto;
   height: auto;
 }
 
 .close-button-div {
+  background-color: white;
   display: flex;
   align-self: flex-start;
   align-items: center;
@@ -85,7 +87,6 @@ h2{
 
 img {
   width: 100%;
-  
 }
 
 .marker {
@@ -94,7 +95,12 @@ img {
   width: 30px;
   height: 40px;
   cursor: pointer;
-  position: relative;
+  position: absolute;
+}
+
+.mapboxgl-ctrl-scale {
+  background-color: rgba(227, 227, 227, 0.605);
+  border-width: 1.5px;
 }
 
 @media only screen and (max-width: 400px) {

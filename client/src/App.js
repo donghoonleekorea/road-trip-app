@@ -11,8 +11,10 @@ function App() {
 
   return (
     <div className='main'>
-      <Map modalState={modal}></Map>
+    <header className='header'>
       <img src={RoadTripLogo} alt='road-trip-app-logo' id='logo'></img>
+    </header>
+      <Map modalState={modal}></Map>
       <div className='add-button-div'>
         <AddButton type='button' id='add-button' onClick={setModal}></AddButton>
       </div>

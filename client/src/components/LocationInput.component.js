@@ -27,8 +27,8 @@ const LocationInput = ({ setCoordinates }) => {
     // create a draggable marker on the map
     const marker = new mapboxgl.Marker(pin, {draggable: true})
       .setLngLat([2, 41.45])
+      .setOffset([0, -20])
       .addTo(map.current);
-    // marker.className = 'black-pin';
 
     // go to user's location by clicking on the map's top-right button
     map.current.addControl(
