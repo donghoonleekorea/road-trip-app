@@ -44,21 +44,25 @@ function NewCampsite ({ setModal }) {
 
   return (
     <div className="new-campground-container">
+      <div className='close-button-div'>
+        <CloseButton type='button' id='close-button' onClick={() => { setModal(false); } }></CloseButton>
+      </div>
       <form type='submit' onSubmit={submitHandler}>
-        <h2>Add a new campground</h2>
-        <p className="input-label">NAME</p>
-        <input placeholder='Insert a name for this campground' required={true}></input>
-        <p className="input-label">DESCRIPTION</p>
-        <input type='text' placeholder='Insert a description for this location' required={true}></input>
-        <p className="input-label">LOCATION</p>
-        <LocationInput setCoordinates={setCoordinates} required={true}></LocationInput>
-        <p className="input-label">IMAGE</p>
-        <FileInput setImageUpload={setImageUpload} required={true}></FileInput> 
+        <h2 id='add-new'>Add a new campground</h2>
+        <div className="sub-entry">
+          <p className="input-label">Give it a name</p>
+          <input placeholder='Insert a name for this campground' required={true}></input>
+          <p className="input-label">Give it a description</p>
+          <input type='text' placeholder='Insert a description for this location' required={true}></input>
+          <p className="input-label">Choose an image</p>
+          <FileInput setImageUpload={setImageUpload} required={true}></FileInput>
+        </div>
+        <div className="sub-entry">
+          <p className="input-label">Set the location</p>
+          <LocationInput setCoordinates={setCoordinates} required={true}></LocationInput>
+        </div>
         <button>Create</button>
       </form>
-      <div className='close-button-div'>
-        <CloseButton type='button' id='close-button' onClick={() => {setModal(false)}}></CloseButton>
-      </div>
     </div>
   )
 }

@@ -1,3 +1,27 @@
 .file-input-container {
   margin-bottom: 15px;
 }
+
+.preview-div {
+  height: 150px;
+  width: 150px;
+  display: flex;
+  align-items: baseline;
+}
+
+#preview-img {
+  margin: 15px;
+  margin-left: 0;
+}
+
+button {
+  margin-top: 15px;
+  border: 0;
+  background-color: rgb(2, 7, 71);
+  color: white;
+  font-size: medium;
+  padding: 15px;
+  border-radius: 15px;
+  font-weight: bold;
+  box-shadow: 1px 1px 6px 1px rgba(88, 88, 88, 0.2);
+}

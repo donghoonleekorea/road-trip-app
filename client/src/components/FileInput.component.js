@@ -39,7 +39,7 @@ const FileInput = ({ setImageUpload }) => {
       // multiple
       onChange={onSelectFile}
       ></input>
-      {selectedFile &&  <img alt='preview' src={preview} /> }
+      {selectedFile &&  <div className='preview-div'><img id='preview-img' alt='preview' src={preview} /></div> }
     </div>
   )
 }

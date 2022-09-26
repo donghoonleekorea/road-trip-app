@@ -15,6 +15,14 @@ function Map ({ modalState }) {
 
   const [campgrounds, setCampgrounds] = useState([]);
 
+  // try:
+  // const [allCoordinates, setAllCoordinates] = useState([]);
+  // outside of use effect call getAllCampgrounds and setAllCoordinates()
+  // maybe link each coordinate to the campground _id
+  // inside useEffect render a marker for each coordinate
+
+  // on 
+
   useEffect(() => {
     getAllCamprounds()
     .then((response) => {setCampgrounds(response)});
@@ -26,7 +34,7 @@ function Map ({ modalState }) {
     campgrounds.map((campground) => {
       const longitude = JSON.parse(campground.location.longitude);
       const latitude = JSON.parse(campground.location.latitude);
-      // const image = campground.image;
+      const image = campground.image;
       const name = campground.name;
       const description = campground.description;
 
@@ -41,8 +49,9 @@ function Map ({ modalState }) {
             .setHTML(
               `<h3>${name}</h3>
               <p>${description}</p>
+              <img src="${image}">
               `
-              // <img src="${image}">
+              // <img src=url(https://media-cdn.tripadvisor.com/media/photo-s/0e/74/d1/48/bridge-bay-campground.jpg)>
             )
         )
         .addTo(map.current);
@@ -64,6 +73,9 @@ function Map ({ modalState }) {
       });
     
     document.getElementById('geocoder').appendChild(geocoder.onAdd(map.current));
+
+
+    /////// for some reason the map control default style broke..
 
     // custom styles inside switcher
     const styles = [

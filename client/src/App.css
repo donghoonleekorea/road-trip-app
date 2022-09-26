@@ -7,10 +7,15 @@ html, body, #root {
 
 #heading {
   font-family: 'Gill Sans';
+  margin: 0;
   margin-left: 1rem;
 }
 
-h2 {margin:0}
+p {
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
 
 .header {
   width: 100vw;
@@ -45,7 +50,7 @@ h2 {margin:0}
 }
 
 .main-container {
-  height: 100vh;
+  height: 100%;
   width: 100vw;
   display: flex;
   flex-direction: column;
@@ -81,43 +86,56 @@ h2 {margin:0}
 }
 
 .close-button-div {
-  background-color: white;
+  background-color: rgb(245, 242, 237);
   display: flex;
-  align-self: flex-start;
+  align-self: flex-end;
   align-items: center;
   margin: 8px;
   width: 2rem;
   height: 2rem;
 }
 
-h2{
-  margin-top: 0;
-}
-
 #close-button {
-  fill: orangered;
+  fill: rgb(2, 7, 71);
   rotate: 45deg;
-  position: relative;
-  align-self: center;
+  align-self: flex-end;
   height: auto;
   width: auto;
 }
 
+/* #background {
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  position: absolute;
+  display: block;
+} */
+
 .new-campground-container {
   position:absolute;
   display: flex;
-  padding: 3rem;
-  bottom: 10%;
+  flex-direction: column;
+  padding: 2rem;
+  bottom: 5%;
   left: 10%;
   right: 10%;
   align-items: center;
-  align-self: center;
-  justify-content: space-between;
-  background-color: white;
+  /* align-self: center; */
+  /* justify-content: space-between; */
+  background-color: rgb(245, 242, 237);
   box-shadow: 1px 2px 20px 10px rgba(50, 50, 50, 0.2);
   height: 70%;
-  border-radius: 50px;
+  border-radius: 10px;
   z-index: 100;
+}
+
+form {
+  width: 100%
+}
+
+.sub-entry {
+  width: 50%;
+  float: left;
 }
 
 img {
@@ -138,9 +156,9 @@ img {
   border-width: 1.5px;
 }
 
-.mapboxgl-ctrl-logo {
+/* .mapboxgl-ctrl-logo {
   display: none !important;
-}
+} */
 
 @media only screen and (max-width: 400px) {
   .add-button-div {
