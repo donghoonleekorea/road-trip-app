@@ -9,7 +9,7 @@ const FileInput = ({ setImageUpload }) => {
   useEffect(() => {
       if (!selectedFile) {
           setPreview(undefined)
-          return
+          return;
       }
       const objectUrl = URL.createObjectURL(selectedFile)
       setPreview(objectUrl)

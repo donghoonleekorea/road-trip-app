@@ -5,17 +5,17 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { useState } from "react";
 import storage from '../firebase';
 import { ReactComponent as CloseButton } from '../assets/add-button.svg';
+import { v4 } from "uuid";
 
-function NewCampsite ({ setModal }) {
+function NewCampsite ({ setModal, setAddNew, addNew }) {
 
   const [imageUpload, setImageUpload] = useState(null);
   const [coordinates, setCoordinates] = useState([2, 41.45]);
-  const [submitting, setSubmitting] = useState(false);
   const [buttonText, setButtonText] = useState('Create');
   
-  const uploadFile = async (e) => {
+  const uploadFile = async () => {
     if (imageUpload == null) return;
-    const imageRef = ref(storage, `images/${imageUpload.name}`);
+    const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
     const snapshot = await uploadBytes(imageRef, imageUpload);
     const url = await getDownloadURL(snapshot.ref);
     return url;
@@ -24,7 +24,7 @@ function NewCampsite ({ setModal }) {
   const submitHandler = async (e) => {
     try {
       setButtonText('Creating...')
-      setSubmitting(true);
+      setAddNew(true);
       e.preventDefault();
       const url = await uploadFile();
       const newCampround = {
@@ -39,8 +39,8 @@ function NewCampsite ({ setModal }) {
       e.target[1].value = '';
       e.target[4].value = '';
       setButtonText('Create');
-      setSubmitting(false);
       setModal(false);
+      setAddNew(false);
     } catch (err) {
       console.log('Error from newCampsite.component/submitHandler');
     }
@@ -54,8 +54,8 @@ function NewCampsite ({ setModal }) {
           <CloseButton type='button' id='close-button' onClick={() => { setModal(false); } }></CloseButton>
         </div>
       </div>
-      <fieldset disabled={submitting}>
-        <form type='submit' onSubmit={submitHandler}>
+      <fieldset disabled={addNew}>
+        <form type='submit' onSubmit={submitHandler}> 
           <div className="sub-entry">
             <p className="input-label">Give it a name</p>
             <input placeholder='Insert a name for this campground' required={true}></input>

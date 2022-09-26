@@ -8,6 +8,7 @@ import { useState } from 'react';
 function App() {
 
   const [modal, setModal] = useState(false);
+  const [addNew, setAddNew] = useState(false);
 
   return (
     <div className='main'>
@@ -15,13 +16,13 @@ function App() {
       <img src={RoadTripLogo} alt='road-trip-app-logo' id='logo'></img>
       <div id='heading'><h2>Road trip - Campgrounds</h2></div>
     </div>
-      <Map modalState={modal}></Map>
+      <Map addedNew={addNew}></Map>
       <div className='add-button-div'>
         <AddButton type='button' id='add-button' onClick={setModal}></AddButton>
       </div>
       {modal && 
       <div>
-        <NewCampsite setModal={setModal} modal={modal}></NewCampsite>
+        <NewCampsite addNew={addNew} setAddNew={setAddNew} setModal={setModal}></NewCampsite>
       </div>
     }
     </div>

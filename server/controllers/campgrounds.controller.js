@@ -12,7 +12,7 @@ exports.getAllCampgrounds = async (req, res) => {
   }
 }
 
-exports.getOneCampground = async (req, res) => {
+exports.getCampgroundById = async (req, res) => {
   try {
     console.log('All good from controller - getOneCampground');
     const campgroundById = await campground.findById(req.params._id);

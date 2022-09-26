@@ -1,61 +1,66 @@
 import React, { useRef, useEffect, useState } from 'react';
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import mapboxgl from '!mapbox-gl';
-import { getAllCamprounds } from '../Services';
+import { getAllCamprounds, getCampgroundById } from '../Services';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import { MapboxStyleSwitcherControl} from "mapbox-gl-style-switcher";
 import "mapbox-gl-style-switcher/styles.css";
+
 mapboxgl.accessToken = 'pk.eyJ1IjoiYWZlcnJhcmlmaXJtbyIsImEiOiJjaXVyYzlqYXYwMDBqMnptczczdjFsZ2RxIn0.zUalw0sjfenPlLL_HCMpTw';
 
-function Map ({ modalState }) {
+function Map ({ addedNew }) {
   
   const mapContainer = useRef(null);
   const map = useRef(null);
 
   const [campgrounds, setCampgrounds] = useState([]);
 
-  // try:
-  // const [allCoordinates, setAllCoordinates] = useState([]);
-  // outside of use effect call getAllCampgrounds and setAllCoordinates()
-  // maybe link each coordinate to the campground _id
-  // inside useEffect render a marker for each coordinate
-
-  // on 
+  useEffect(() => {
+    getAllCamprounds()
+    .then((response) => {setCampgrounds(response)});
+  }, [addedNew]); // only gets campgrounds on refresh and when a new campground is added
 
   useEffect(() => {
-    // getAllCamprounds()
-    // .then((response) => {setCampgrounds(response)});
-  }, [modalState]);
 
-  useEffect(() => {
+    // creates and renders a marker for each campground
+  campgrounds.map((campground) => {
+    const longitude = JSON.parse(campground.location.longitude);
+    const latitude = JSON.parse(campground.location.latitude);
+    const id = campground._id;
     
-    // renders a marker for each campground
-    campgrounds.map((campground) => {
-      const longitude = JSON.parse(campground.location.longitude);
-      const latitude = JSON.parse(campground.location.latitude);
-      const image = campground.image;
+    const pin = document.createElement('div');
+    pin.className = 'marker';
+    pin.id = `${id}`;
+
+    new mapboxgl.Marker(pin, { offset: [0, -20] })
+      .setLngLat([longitude, latitude])
+      .addTo(map.current);
+
+    // add a popup on click ONLY *important* 
+    // if we add a popup to each marker when we create it 
+    // it will download every image from the FB storage everytime the markers are rendered
+    // the storage downloads are limited so we'll loose access to images as soon as we reach the limit
+      
+    pin.addEventListener('click', async () => {
       const name = campground.name;
       const description = campground.description;
-
-      const pin = document.createElement('div');
-      pin.className = 'marker';
-
-      new mapboxgl.Marker(pin, { offset: [0, -20] })
+      const image = campground.image;
+      console.log(pin.id)
+      const res = await getCampgroundById(pin.id);
+      console.log(res);
+      new mapboxgl.Popup({ offset: 30 }) // add popups
         .setLngLat([longitude, latitude])
-        // add a pop-up for each marker
-        .setPopup(
-          new mapboxgl.Popup({ offset: 30 }) // add popups
-            .setHTML(
-              `<h3>${name}</h3>
-              <p>${description}</p>
-              <img src="${image}">
-              `
-              // <img src=url(https://media-cdn.tripadvisor.com/media/photo-s/0e/74/d1/48/bridge-bay-campground.jpg)>
-            )
+        .setHTML(
+          `<h3>${name}</h3>
+          <p>${description}</p>
+          <img src="${image}">
+          `
         )
         .addTo(map.current);
-    });
+        
+    })
+  });
     
     if (map.current) return; // initialize map only once
     map.current = new mapboxgl.Map({
@@ -109,7 +114,7 @@ function Map ({ modalState }) {
         positionOptions: {
           enableHighAccuracy: true
         },
-        // When active the map will receive updates to the device's location as it changes.
+      // When active the map will receive updates to the device's location as it changes.
       trackUserLocation: true,
       // Draw an arrow next to the location dot to indicate which direction the device is heading.
       showUserHeading: true
@@ -121,7 +126,7 @@ function Map ({ modalState }) {
       <div id="geocoder" className="geocoder"></div>
       <div ref={mapContainer} className="map-container" />
     </div>
-  )
-}
+  );
+};
 
 export default Map;

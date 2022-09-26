@@ -20,3 +20,13 @@ export const getAllCamprounds = async () => {
     console.log('Error from getAllCampgrounds in Services');
   }
 };
+
+export const getCampgroundById = async (id) => {
+  try {
+    console.log(id);
+    const response = await fetch(process.env.REACT_APP_DB_URL + id);
+    return response.json();
+  } catch (err) {
+    console.log('Error from getCampgroundById in Services');
+  }
+};
