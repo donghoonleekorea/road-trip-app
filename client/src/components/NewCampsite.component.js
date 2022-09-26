@@ -6,12 +6,12 @@ import { useState } from "react";
 import storage from '../firebase';
 import { ReactComponent as CloseButton } from '../assets/add-button.svg';
 
-
-
 function NewCampsite ({ setModal }) {
 
   const [imageUpload, setImageUpload] = useState(null);
   const [coordinates, setCoordinates] = useState([2, 41.45]);
+  const [submitting, setSubmitting] = useState(false);
+  const [buttonText, setButtonText] = useState('Create');
   
   const uploadFile = async (e) => {
     if (imageUpload == null) return;
@@ -23,6 +23,8 @@ function NewCampsite ({ setModal }) {
 
   const submitHandler = async (e) => {
     try {
+      setButtonText('Creating...')
+      setSubmitting(true);
       e.preventDefault();
       const url = await uploadFile();
       const newCampround = {
@@ -36,6 +38,8 @@ function NewCampsite ({ setModal }) {
       e.target[0].value = '';
       e.target[1].value = '';
       e.target[4].value = '';
+      setButtonText('Create');
+      setSubmitting(false);
       setModal(false);
     } catch (err) {
       console.log('Error from newCampsite.component/submitHandler');
@@ -44,25 +48,29 @@ function NewCampsite ({ setModal }) {
 
   return (
     <div className="new-campground-container">
-      <div className='close-button-div'>
-        <CloseButton type='button' id='close-button' onClick={() => { setModal(false); } }></CloseButton>
+      <div className="head-new-campground">
+        <><h2 id='add-new'>Add a new campground</h2></>
+        <div className='close-button-div'>
+          <CloseButton type='button' id='close-button' onClick={() => { setModal(false); } }></CloseButton>
+        </div>
       </div>
-      <form type='submit' onSubmit={submitHandler}>
-        <h2 id='add-new'>Add a new campground</h2>
-        <div className="sub-entry">
-          <p className="input-label">Give it a name</p>
-          <input placeholder='Insert a name for this campground' required={true}></input>
-          <p className="input-label">Give it a description</p>
-          <input type='text' placeholder='Insert a description for this location' required={true}></input>
-          <p className="input-label">Choose an image</p>
-          <FileInput setImageUpload={setImageUpload} required={true}></FileInput>
-        </div>
-        <div className="sub-entry">
-          <p className="input-label">Set the location</p>
-          <LocationInput setCoordinates={setCoordinates} required={true}></LocationInput>
-        </div>
-        <button>Create</button>
-      </form>
+      <fieldset disabled={submitting}>
+        <form type='submit' onSubmit={submitHandler}>
+          <div className="sub-entry">
+            <p className="input-label">Give it a name</p>
+            <input placeholder='Insert a name for this campground' required={true}></input>
+            <p className="input-label">Give it a description</p>
+            <textarea type='text' placeholder='Insert a description for this location' required={true}></textarea>
+            <p className="input-label">Choose an image</p>
+            <FileInput setImageUpload={setImageUpload} required={true}></FileInput>
+          </div>
+          <div className="sub-entry">
+            <p className="input-label">Set the location</p>
+            <LocationInput setCoordinates={setCoordinates} required={true}></LocationInput>
+          </div>
+          <button id='create-button'>{buttonText}</button>
+        </form>
+      </fieldset>
     </div>
   )
 }

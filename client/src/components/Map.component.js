@@ -24,8 +24,8 @@ function Map ({ modalState }) {
   // on 
 
   useEffect(() => {
-    getAllCamprounds()
-    .then((response) => {setCampgrounds(response)});
+    // getAllCamprounds()
+    // .then((response) => {setCampgrounds(response)});
   }, [modalState]);
 
   useEffect(() => {
@@ -74,9 +74,6 @@ function Map ({ modalState }) {
     
     document.getElementById('geocoder').appendChild(geocoder.onAdd(map.current));
 
-
-    /////// for some reason the map control default style broke..
-
     // custom styles inside switcher
     const styles = [
       {
@@ -121,7 +118,7 @@ function Map ({ modalState }) {
   
   return (
     <div className='main-container'>
-    <div id="geocoder" className="geocoder"></div>
+      <div id="geocoder" className="geocoder"></div>
       <div ref={mapContainer} className="map-container" />
     </div>
   )
