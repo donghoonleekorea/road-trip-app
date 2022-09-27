@@ -25,7 +25,6 @@ export const getAllCamprounds = async () => {
 
 export const getCampgroundById = async (id) => {
   try {
-    console.log(id);
     const response = await fetch(process.env.REACT_APP_DB_URL + 'campgrounds/' + id);
     return response.json();
   } catch (err) {

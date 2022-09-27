@@ -13,13 +13,11 @@ const LocationInput = ({ currentLocation, setCoordinates }) => {
   const map = useRef(null);
   
   useEffect(() => {
-    console.log(currentLocation[0])
-    // if (map.current) return; // initialize map only once
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/aferrarifirmo/cl8hbvmi3001415o9hxsj0b3l',
-      center: currentLocation || [2, 41.45],
-      zoom: 5.5,
+      center: currentLocation,
+      zoom: 4,
     });
 
     // define properties of the draggable marker
@@ -28,7 +26,7 @@ const LocationInput = ({ currentLocation, setCoordinates }) => {
 
     // create a draggable marker on the map
     const marker = new mapboxgl.Marker(pin, {draggable: true})
-      .setLngLat(currentLocation || [2, 41.45])
+      .setLngLat(currentLocation)
       .setOffset([0, -20])
       .addTo(map.current);
 

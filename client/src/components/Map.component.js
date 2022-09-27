@@ -19,26 +19,22 @@ function Map ({ currentLocation, addNew }) {
   const getCamps = async () => {
     const camps = await getAllCamprounds();
     setCampgrounds(camps);
-    console.log(camps);
   }
 
   useEffect(() => {
     getCamps();
   }, [addNew]); // gets campgrounds when a new campground is added
 
-  useEffect(()=> console.log('map:', currentLocation[0]), [currentLocation]);
-
   useEffect(() => {
     // if (currentLocation.length)
     if (map.current || !currentLocation.length) return;
-    console.log('currentLocation: ', currentLocation);
     
     // initialize map
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/aferrarifirmo/cl8hbvmi3001415o9hxsj0b3l',
       center: currentLocation,
-      zoom: 6
+      zoom: 4
     });
 
     // add search bar to the map 

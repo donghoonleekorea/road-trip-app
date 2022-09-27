@@ -67,7 +67,7 @@ const NewCampsite = ({ currentLocation, setModal, setAddNew, addNew }) => {
             <FileInput setImageUpload={setImageUpload} required={true}></FileInput>
           </div>
           <div className="sub-entry">
-            <p className="input-label">Set the location</p>
+            <p className="input-label">Set the location by dragging the marker</p>
             <LocationInput currentLocation={currentLocation} setCoordinates={setCoordinates} required={true}></LocationInput>
           </div>
           <button id='create-button'>{buttonText}</button>

@@ -20,15 +20,12 @@ function App() {
   }
 
   const locationDenied = () => {
-    setCurrentLocation([1.93, 47]);
+    setCurrentLocation([0, 44]);
   }
   
   useEffect(() => {
     getCurrentLocation();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  useEffect(()=> console.log(currentLocation), [currentLocation]);
   
   return (
     <main className='main'>
