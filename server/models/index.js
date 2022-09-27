@@ -15,7 +15,7 @@ db.once('open', () => {
   console.log('Connected to DB');
 });
 
-mongoose.connect(process.env.MONGO_DB, settings);
+mongoose.connect(MONGO_DB, settings);
 
 module.exports = mongoose;
 
