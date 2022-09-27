@@ -7,14 +7,14 @@ import storage from '../firebase';
 import { ReactComponent as CloseButton } from '../assets/add-button.svg';
 import { v4 } from "uuid";
 
-function NewCampsite ({ setModal, setAddNew, addNew }) {
+const NewCampsite = ({ currentLocation, setModal, setAddNew, addNew }) => {
 
   const [imageUpload, setImageUpload] = useState(null);
   const [coordinates, setCoordinates] = useState([2, 41.45]);
   const [buttonText, setButtonText] = useState('Create');
   
   const uploadFile = async () => {
-    if (imageUpload == null) return;
+    if (imageUpload === null) return;
     const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
     const snapshot = await uploadBytes(imageRef, imageUpload);
     const url = await getDownloadURL(snapshot.ref);
@@ -23,7 +23,9 @@ function NewCampsite ({ setModal, setAddNew, addNew }) {
 
   const submitHandler = async (e) => {
     try {
-      setButtonText('Creating...')
+      setButtonText('Creating...');
+      const pointer = document.getElementById('create-button');
+      pointer.style.cursor = 'wait';
       setAddNew(true);
       e.preventDefault();
       const url = await uploadFile();
@@ -32,7 +34,7 @@ function NewCampsite ({ setModal, setAddNew, addNew }) {
         description: e.target[1].value,
         location: {longitude: coordinates[0], latitude: coordinates[1]},
         image: url
-      }
+      };
       console.log(newCampround);
       addNewCampground(newCampround);
       e.target[0].value = '';
@@ -47,7 +49,7 @@ function NewCampsite ({ setModal, setAddNew, addNew }) {
   };
 
   return (
-    <div className="new-campground-container">
+    <main className="new-campground-container">
       <div className="head-new-campground">
         <><h2 id='add-new'>Add a new campground</h2></>
         <div className='close-button-div'>
@@ -66,12 +68,12 @@ function NewCampsite ({ setModal, setAddNew, addNew }) {
           </div>
           <div className="sub-entry">
             <p className="input-label">Set the location</p>
-            <LocationInput setCoordinates={setCoordinates} required={true}></LocationInput>
+            <LocationInput currentLocation={currentLocation} setCoordinates={setCoordinates} required={true}></LocationInput>
           </div>
           <button id='create-button'>{buttonText}</button>
         </form>
       </fieldset>
-    </div>
+    </main>
   )
 }
 

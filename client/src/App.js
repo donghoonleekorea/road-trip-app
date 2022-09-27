@@ -3,29 +3,50 @@ import Map from './components/Map.component';
 import NewCampsite from './components/NewCampsite.component';
 import { ReactComponent as AddButton } from './assets/add-button.svg';
 import RoadTripLogo from './assets/road-trip-logo.png';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function App() {
 
   const [modal, setModal] = useState(false);
   const [addNew, setAddNew] = useState(false);
+  const [currentLocation, setCurrentLocation] = useState([]);
+ 
+  const getCurrentLocation = () => {
+      navigator.geolocation.getCurrentPosition(getCoordinates, locationDenied);
+  }
+  
+  const getCoordinates = (e) => {
+    setCurrentLocation([e.coords.longitude, e.coords.latitude]);
+  }
 
+  const locationDenied = () => {
+    setCurrentLocation([1.93, 47]);
+  }
+  
+  useEffect(() => {
+    getCurrentLocation();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(()=> console.log(currentLocation), [currentLocation]);
+  
   return (
-    <div className='main'>
-    <div className='header'>
-      <img src={RoadTripLogo} alt='road-trip-app-logo' id='logo'></img>
-      <div id='heading'><h2>Road trip - Campgrounds</h2></div>
-    </div>
-      <Map addedNew={addNew}></Map>
+    <main className='main'>
+      <header className='header'>
+        <p id="loc"></p>
+        <img src={RoadTripLogo} alt='road-trip-app-logo' id='logo'></img>
+        <div id='heading'><h2>Road trip - Campgrounds</h2></div>
+      </header>
+      <Map currentLocation={currentLocation} setCurrentLocation={setCurrentLocation} addNew={addNew}></Map>
       <div className='add-button-div'>
         <AddButton type='button' id='add-button' onClick={setModal}></AddButton>
       </div>
-      {modal && 
-      <div>
-        <NewCampsite addNew={addNew} setAddNew={setAddNew} setModal={setModal}></NewCampsite>
-      </div>
-    }
-    </div>
+      { modal && 
+        <div>
+          <NewCampsite currentLocation={currentLocation} addNew={addNew} setAddNew={setAddNew} setModal={setModal}></NewCampsite>
+        </div>
+      }
+    </main>
   );
 }
 

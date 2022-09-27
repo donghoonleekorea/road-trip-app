@@ -7,18 +7,18 @@ import "mapbox-gl-style-switcher/styles.css";
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiYWZlcnJhcmlmaXJtbyIsImEiOiJjaXVyYzlqYXYwMDBqMnptczczdjFsZ2RxIn0.zUalw0sjfenPlLL_HCMpTw';
 
-const LocationInput = ({ setCoordinates }) => {
+const LocationInput = ({ currentLocation, setCoordinates }) => {
 
   const mapContainer = useRef(null);
   const map = useRef(null);
   
   useEffect(() => {
-
-    if (map.current) return; // initialize map only once
+    console.log(currentLocation[0])
+    // if (map.current) return; // initialize map only once
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/aferrarifirmo/cl8hbvmi3001415o9hxsj0b3l',
-      center: [2, 41.45],
+      center: currentLocation || [2, 41.45],
       zoom: 5.5,
     });
 
@@ -28,7 +28,7 @@ const LocationInput = ({ setCoordinates }) => {
 
     // create a draggable marker on the map
     const marker = new mapboxgl.Marker(pin, {draggable: true})
-      .setLngLat([2, 41.45])
+      .setLngLat(currentLocation || [2, 41.45])
       .setOffset([0, -20])
       .addTo(map.current);
 

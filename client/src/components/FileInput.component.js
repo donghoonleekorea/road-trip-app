@@ -13,7 +13,6 @@ const FileInput = ({ setImageUpload }) => {
       }
       const objectUrl = URL.createObjectURL(selectedFile)
       setPreview(objectUrl)
-
       return () => URL.revokeObjectURL(objectUrl)
   }, [selectedFile])
 
@@ -34,7 +33,7 @@ const FileInput = ({ setImageUpload }) => {
       // multiple
       onChange={onSelectFile}
       ></input>
-      {selectedFile &&  <div className='preview-div'><img id='preview-img' alt='preview' src={preview} /></div> }
+      {selectedFile &&  <figure className='preview-div'><img id='preview-img' alt='preview' src={preview} /></figure> }
     </div>
   )
 }

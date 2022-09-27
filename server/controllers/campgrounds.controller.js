@@ -2,8 +2,8 @@ const campground = require('../models/campgrounds.model');
 
 exports.getAllCampgrounds = async (req, res) => {
   try {
-    console.log('All good from controller - getCamprounds');
     const campgrounds = await campground.find({});
+    console.log('All good from controller - getCamprounds');
     res.status(200);
     res.send(campgrounds);
   } catch (err) {
@@ -14,8 +14,8 @@ exports.getAllCampgrounds = async (req, res) => {
 
 exports.getCampgroundById = async (req, res) => {
   try {
-    console.log('All good from controller - getOneCampground');
     const campgroundById = await campground.findById(req.params._id);
+    console.log('All good from controller - getOneCampground');
     res.status(200);
     res.send(campgroundById);
   } catch (err) {
@@ -26,8 +26,8 @@ exports.getCampgroundById = async (req, res) => {
 
 exports.postCampground = async (req, res) => {
   try {
+    await campground.create(req.body);
     console.log('All good from controller - postCampround');
-    campground.create(req.body);
     res.status(201);
     res.send(req.body);
   } catch (err) {
@@ -38,8 +38,8 @@ exports.postCampground = async (req, res) => {
 
 exports.removeCampground = async (req, res) => {
   try {
-    console.log('All good from controller - removeCampground');
     await campground.findByIdAndDelete(req.params._id);
+    console.log('All good from controller - removeCampground');
     res.status(200);
     res.send('Successfully deleted');
   } catch (err) {
