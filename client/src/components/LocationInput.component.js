@@ -4,6 +4,8 @@ import React, { useRef, useEffect } from 'react';
 import mapboxgl from '!mapbox-gl';
 import { MapboxStyleSwitcherControl} from "mapbox-gl-style-switcher";
 import "mapbox-gl-style-switcher/styles.css";
+import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
+import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiYWZlcnJhcmlmaXJtbyIsImEiOiJjaXVyYzlqYXYwMDBqMnptczczdjFsZ2RxIn0.zUalw0sjfenPlLL_HCMpTw';
 
@@ -30,7 +32,13 @@ const LocationInput = ({ currentLocation, setCoordinates }) => {
       .setOffset([0, -20])
       .addTo(map.current);
 
-    // go to user's location by clicking on the map's top-right button
+    map.current.addControl(
+      new MapboxGeocoder({
+      accessToken: mapboxgl.accessToken,
+      mapboxgl: mapboxgl,
+    }));
+
+    // go to user's location control
     map.current.addControl(
       new mapboxgl.GeolocateControl({
         positionOptions: {

@@ -36,7 +36,7 @@ function App() {
       </header>
       <Map currentLocation={currentLocation} setCurrentLocation={setCurrentLocation} addNew={addNew}></Map>
       <div className='add-button-div'>
-        <AddButton type='button' id='add-button' onClick={setModal}></AddButton>
+        <AddButton title='Add Campsite' type='button' id='add-button' onClick={setModal}></AddButton>
       </div>
       { modal && 
         <div>
