@@ -1,6 +1,8 @@
 {
   "name": "road-trip-app",
   "dependencies": {
+    "@types/cors": "^2.8.12",
+    "@types/morgan": "^1.9.3",
     "cors": "^2.8.5",
     "dotenv": "^16.0.2",
     "express": "^4.18.1",

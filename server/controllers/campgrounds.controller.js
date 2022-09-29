@@ -1,49 +1,24 @@
+'use strict';
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", { value: true });
 const campground = require('../models/campgrounds.model');
-
-exports.getAllCampgrounds = async (req, res) => {
-  try {
-    const campgrounds = await campground.find({});
-    console.log('All good from controller - getCamprounds');
-    res.status(200);
-    res.send(campgrounds);
-  } catch (err) {
-    console.log('Error from controller - getCamprounds');
-    res.status(400);
-  }
-}
-
-exports.getCampgroundById = async (req, res) => {
-  try {
-    const campgroundById = await campground.findById(req.params._id);
-    console.log('All good from controller - getOneCampground');
-    res.status(200);
-    res.send(campgroundById);
-  } catch (err) {
-    console.log('Error from controller - getOneCampground');
-    res.status(400);
-  }
-}
-
-exports.postCampground = async (req, res) => {
-  try {
-    await campground.create(req.body);
-    console.log('All good from controller - postCampround');
-    res.status(201);
-    res.send(req.body);
-  } catch (err) {
-    console.log('Error from controller - postCampround');
-    res.status(400);
-  }
-}
-
-exports.removeCampground = async (req, res) => {
-  try {
-    await campground.findByIdAndDelete(req.params._id);
-    console.log('All good from controller - removeCampground');
-    res.status(200);
-    res.send('Successfully deleted');
-  } catch (err) {
-    console.log('Error from controller - removeCampground');
-    res.status(400);
-  }
-}
+exports.default = getAllCampgrounds = (_, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const campgrounds = yield campground.find({});
+        console.log('All good from controller - getCamprounds');
+        res.status(200);
+        res.send(campgrounds);
+    }
+    catch (err) {
+        console.log('Error from controller - getCamprounds');
+        res.status(400);
+    }
+});
