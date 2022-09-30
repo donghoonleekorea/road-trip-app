@@ -4,10 +4,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+//const Router = require('express');
+const campgrounds_controller_1 = __importDefault(require("./controllers/campgrounds.controller"));
+//const controller = require('./controllers/campgrounds.controller')
 const router = (0, express_1.default)();
-// import  {getAllCampgrounds, postCampground, removeCampground, getCampgroundById } from './controllers/campgrounds.controller';
-// router.get('/campgrounds', getAllCampgrounds);
-// router.post('/campgrounds', postCampground);
-// router.delete('/campgrounds/:_id', removeCampground);
-// router.get('/campgrounds/:_id', getCampgroundById);
+router.get('/campgrounds', campgrounds_controller_1.default.getAllCampgrounds);
+router.post('/campgrounds', campgrounds_controller_1.default.postCampground);
+router.delete('/campgrounds/:_id', campgrounds_controller_1.default.removeCampground);
+router.get('/campgrounds/:_id', campgrounds_controller_1.default.getCampgroundById);
 exports.default = router;
