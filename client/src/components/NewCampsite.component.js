@@ -64,7 +64,7 @@ const NewCampsite = ({ currentLocation, setModal, setAddNew, addNew }) => {
             <p className="input-label">Give it a description</p>
             <textarea type='text' placeholder='Insert a description for this location' required={true}></textarea>
             <p className="input-label">Choose an image</p>
-            <FileInput setImageUpload={setImageUpload} required={true}></FileInput>
+            <FileInput setImageUpload={setImageUpload}></FileInput>
           </div>
           <div className="sub-entry">
             <p className="input-label">Set the location by dragging the marker</p>

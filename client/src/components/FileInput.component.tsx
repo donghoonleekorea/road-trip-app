@@ -1,7 +1,12 @@
 import './FileInput.styles.css';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-const FileInput = ({ setImageUpload }) => {
+
+type Props= {
+  setImageUpload: React.Dispatch<React.SetStateAction<undefined>>
+
+}
+const FileInput = ({ setImageUpload }: Props) => {
   const [selectedFile, setSelectedFile] = useState();
   const [preview, setPreview] = useState();
 
@@ -30,6 +35,7 @@ const FileInput = ({ setImageUpload }) => {
         id='choose-file'
         type='file'
         accept='.jpg, .jpeg, .png, .gif'
+        required
         // multiple
         onChange={onSelectFile}
       ></input>
