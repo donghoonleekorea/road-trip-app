@@ -1,4 +1,16 @@
-const { Schema, model } = require('./index');
+import { Schema, model  } from 'mongoose';
+
+export interface ILocation {
+  longitude: string;
+  latitude: string;
+}
+
+export interface ICampground {
+  name: string;
+  location: ILocation;
+  description: string;
+  image: string;
+}
 
 const campgroundSchema = new Schema ({
   name: {type: String, required: true},
@@ -12,6 +24,7 @@ const campgroundSchema = new Schema ({
   image: {type: String, required: false}
 });
 
-const Campground = model('campgrounds', campgroundSchema);
+const Campground = model<ICampground>('Campgrounds', campgroundSchema);
 
-module.exports = Campground;
+export default Campground;
+
