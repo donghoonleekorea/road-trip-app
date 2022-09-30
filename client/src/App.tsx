@@ -9,7 +9,7 @@ const RoadTripLogo = require('./assets/road-trip-logo.png');
 function App() {
   const [modal, setModal] = useState<boolean>(false);
   const [addNew, setAddNew] = useState<boolean>(false);
-  const [currentLocation, setCurrentLocation] = useState<number[]>([]);
+  const [currentLocation, setCurrentLocation] = useState<any[]>([]);
 
   const getCurrentLocation = () => {
     navigator.geolocation.getCurrentPosition(getCoordinates, locationDenied);

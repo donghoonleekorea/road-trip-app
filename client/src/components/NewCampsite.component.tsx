@@ -30,18 +30,18 @@ const NewCampsite = ({ currentLocation, setModal, setAddNew, addNew }: Props) =>
     return url;
   };
 
-  const submitHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const submitHandler = async (e: any) => {
     try {
       setButtonText('Creating...');
       const pointer = document.getElementById('create-button');
-      pointer && pointer.style.cursor = 'wait';
+      pointer && pointer.setAttribute("style", "cursor: wait");
       setAddNew(true);
       e.preventDefault();
       const url = await uploadFile();
       const newCampround = {
         name: e.target[0].value,
         description: e.target[1].value,
-        location: { longitude: coordinates[0], latitude: coordinates[1] },
+        location: { longitude: String(coordinates[0]), latitude: String(coordinates[1]) },
         image: url,
       };
       console.log(newCampround);

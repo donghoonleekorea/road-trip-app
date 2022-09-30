@@ -32,7 +32,7 @@ const NewCampsite = ({ currentLocation, setModal, setAddNew, addNew }) => {
       const newCampround = {
         name: e.target[0].value,
         description: e.target[1].value,
-        location: {longitude: coordinates[0], latitude: coordinates[1]},
+        location: {longitude: coordinates[0] , latitude: coordinates[1]},
         image: url
       };
       console.log(newCampround);
