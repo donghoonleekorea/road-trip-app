@@ -1,14 +1,13 @@
-import Router from 'express';
-
-const router = Router();
-
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const router = (0, express_1.default)();
 // import  {getAllCampgrounds, postCampground, removeCampground, getCampgroundById } from './controllers/campgrounds.controller';
-
 // router.get('/campgrounds', getAllCampgrounds);
 // router.post('/campgrounds', postCampground);
 // router.delete('/campgrounds/:_id', removeCampground);
 // router.get('/campgrounds/:_id', getCampgroundById);
-
-export default router;
-
-
+exports.default = router;
