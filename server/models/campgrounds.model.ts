@@ -1,13 +1,16 @@
 import { Schema, model  } from 'mongoose';
-
-export interface ILocation {
-  longitude: string;
-  latitude: string;
-}
+import mongoose from './index';
+// export interface ILocation {
+//   longitude: string;
+//   latitude: string;
+// }
 
 export interface ICampground {
   name: string;
-  location: ILocation;
+  location: {
+    longitude: string,
+    latitude: string,
+  },
   description: string;
   image: string;
 }
@@ -24,7 +27,7 @@ const campgroundSchema = new Schema ({
   image: {type: String, required: false}
 });
 
-const Campground = model<ICampground>('Campgrounds', campgroundSchema);
+const Campground = mongoose.model<ICampground>('campgrounds', campgroundSchema);
 
 export default Campground;
 

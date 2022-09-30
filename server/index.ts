@@ -8,7 +8,7 @@ import * as dotenv from 'dotenv';
 
 const app = express();
 
-dotenv.config({ path: __dirname+'/.env'});
+dotenv.config();
 
 app.use(cors());
 app.use(morgan('dev'));

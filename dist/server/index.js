@@ -33,7 +33,7 @@ const morgan_1 = __importDefault(require("morgan"));
 const router_1 = __importDefault(require("./router"));
 const dotenv = __importStar(require("dotenv"));
 const app = (0, express_1.default)();
-dotenv.config({ path: __dirname + '/.env' });
+dotenv.config();
 app.use((0, cors_1.default)());
 app.use((0, morgan_1.default)('dev'));
 app.use(express_1.default.json());

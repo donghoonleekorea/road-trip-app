@@ -27,14 +27,15 @@ const getCampgroundById = async (req: Request, res: Response) => {
   }
 };
 const postCampground = async (req: Request, res: Response) => {
+  console.log(req.body)
   try {
     await Campground.create(req.body);
     console.log('All good from controller - postCampround');
     res.status(201);
     res.send(req.body);
   } catch (err) {
-    console.log('Error from controller - postCampround');
-    res.status(400);
+    console.log(err, 'Error from controller - postCampround');
+    res.status(400).send('sorry')
   }
 };
 const removeCampground = async (req: Request, res: Response) => {
