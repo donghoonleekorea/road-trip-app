@@ -1,5 +1,7 @@
 import './App.css';
-import Map from './components/Map.component';
+import Maps from './components/Map.component';
+import mapboxgl, { LngLat } from 'mapbox-gl';
+
 import NewCampsite from './components/NewCampsite.component';
 
 import { useEffect, useState } from 'react';
@@ -9,18 +11,22 @@ const RoadTripLogo = require('./assets/road-trip-logo.png');
 function App() {
   const [modal, setModal] = useState<boolean>(false);
   const [addNew, setAddNew] = useState<boolean>(false);
-  const [currentLocation, setCurrentLocation] = useState<any[]>([]);
+  const [currentLocation, setCurrentLocation] = useState<LngLat>(
+    new mapboxgl.LngLat(0, 0)
+  );
 
   const getCurrentLocation = () => {
     navigator.geolocation.getCurrentPosition(getCoordinates, locationDenied);
   };
 
-  const getCoordinates = (e: {coords: {longitude: number, latitude: number}}) => {
-    setCurrentLocation([e.coords.longitude, e.coords.latitude]);
+  const getCoordinates = (e: GeolocationPosition) => {
+    setCurrentLocation(
+      new mapboxgl.LngLat(e.coords.longitude, e.coords.latitude)
+    );
   };
 
   const locationDenied = () => {
-    setCurrentLocation([0, 44]);
+    setCurrentLocation(new mapboxgl.LngLat(0, 44));
   };
 
   useEffect(() => {
@@ -40,11 +46,10 @@ function App() {
           <h2>Road trip - Campgrounds</h2>
         </div>
       </header>
-      <Map
+      <Maps
         currentLocation={currentLocation}
-        setCurrentLocation={setCurrentLocation}
         addNew={addNew}
-      ></Map>
+      ></Maps>
       <div className='add-button-div'>
         <AddButton
           title='Add Campsite'
@@ -68,3 +73,6 @@ function App() {
 }
 
 export default App;
+
+
+

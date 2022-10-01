@@ -1,7 +1,7 @@
 import './LocationInput.styles.css';
 import React, { useRef, useEffect } from 'react';
 // eslint-disable-next-line import/no-webpack-loader-syntax
-import mapboxgl from '!mapbox-gl';
+import mapboxgl, {LngLat, Map} from 'mapbox-gl';
 import { MapboxStyleSwitcherControl } from 'mapbox-gl-style-switcher';
 import 'mapbox-gl-style-switcher/styles.css';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
@@ -10,13 +10,17 @@ import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 mapboxgl.accessToken =
   'pk.eyJ1IjoiYWZlcnJhcmlmaXJtbyIsImEiOiJjaXVyYzlqYXYwMDBqMnptczczdjFsZ2RxIn0.zUalw0sjfenPlLL_HCMpTw';
 
-const LocationInput = ({ currentLocation, setCoordinates }) => {
+type Props = {
+  currentLocation: LngLat,
+  setCoordinates: React.Dispatch<React.SetStateAction<LngLat>>
+}
+const LocationInput = ({ currentLocation, setCoordinates }: Props) => {
   const mapContainer = useRef(null);
-  const map = useRef(null);
+  const map = useRef<Map | null>(null);
 
   useEffect(() => {
     map.current = new mapboxgl.Map({
-      container: mapContainer.current,
+      container: mapContainer.current!,
       style: 'mapbox://styles/aferrarifirmo/cl8hbvmi3001415o9hxsj0b3l',
       center: currentLocation,
       zoom: 4,
@@ -75,7 +79,7 @@ const LocationInput = ({ currentLocation, setCoordinates }) => {
     // get the coordinates from the position where the pin was dragged to
     const getCoordinates = () => {
       const coordinates = marker.getLngLat();
-      setCoordinates([coordinates.lng, coordinates.lat]);
+      setCoordinates(new mapboxgl.LngLat(coordinates.lng, coordinates.lat));
       console.log([coordinates.lng, coordinates.lat]);
     };
 

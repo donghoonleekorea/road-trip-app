@@ -1,26 +1,24 @@
 import './FileInput.styles.css';
 import React, { useEffect, useState } from 'react';
 
-
-type Props= {
-  setImageUpload: React.Dispatch<React.SetStateAction<undefined>>
-
-}
+type Props = {
+  setImageUpload: React.Dispatch<React.SetStateAction<undefined>>;
+};
 const FileInput = ({ setImageUpload }: Props) => {
   const [selectedFile, setSelectedFile] = useState();
-  const [preview, setPreview] = useState();
+  const [preview, setPreview] = useState<string>();
 
   useEffect(() => {
     if (!selectedFile) {
       setPreview(undefined);
       return;
     }
-    const objectUrl = URL.createObjectURL(selectedFile);
+    const objectUrl: string = URL.createObjectURL(selectedFile);
     setPreview(objectUrl);
     return () => URL.revokeObjectURL(objectUrl);
   }, [selectedFile]);
 
-  const onSelectFile = (e) => {
+  const onSelectFile = (e: any) => {
     if (!e.target.files) {
       setSelectedFile(undefined);
       return;
@@ -53,3 +51,4 @@ const FileInput = ({ setImageUpload }: Props) => {
 };
 
 export default FileInput;
+

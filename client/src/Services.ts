@@ -1,11 +1,11 @@
-interface Campground {
+import { LngLat } from "mapbox-gl";
+
+export interface Campground {
   name: string;
-  location: {
-    longitude: string;
-    latitude: string;
-  };
   description: string;
+  location: LngLat;
   image: string;
+  _id?: string,
 }
 
 export const addNewCampground = async (campground: Campground): Promise<Campground | string> => {

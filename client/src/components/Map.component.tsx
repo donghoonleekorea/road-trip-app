@@ -1,22 +1,27 @@
 import React, { useRef, useEffect, useState } from 'react';
 // eslint-disable-next-line import/no-webpack-loader-syntax
-import mapboxgl from '!mapbox-gl';
-import { getAllCamprounds, getCampgroundById } from '../Services';
+import mapboxgl, { LngLat, Map } from 'mapbox-gl';
+import { getAllCamprounds, getCampgroundById, Campground } from '../Services';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import { MapboxStyleSwitcherControl } from 'mapbox-gl-style-switcher';
 import 'mapbox-gl-style-switcher/styles.css';
 
-mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
+mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN as string;
 
-function Map({ currentLocation, addNew }) {
+type Props = {
+  currentLocation: LngLat;
+  addNew: boolean;
+};
+
+function Maps({ currentLocation, addNew }: Props) {
   const mapContainer = useRef(null);
-  const map = useRef(null);
+  const map = useRef<Map | null>(null);
 
-  const [campgrounds, setCampgrounds] = useState([]);
+  const [campgrounds, setCampgrounds] = useState<Campground[] | string>([]);
 
   const getCamps = async () => {
-    const camps = await getAllCamprounds();
+    const camps: Campground[] | string = await getAllCamprounds();
     setCampgrounds(camps);
   };
 
@@ -25,12 +30,13 @@ function Map({ currentLocation, addNew }) {
   }, [addNew]); // gets campgrounds when a new campground is added
 
   useEffect(() => {
-    // if (currentLocation.length)
-    if (map.current || !currentLocation.length) return;
+    // if (!currentLocation.length)
+    if (map.current || (currentLocation.lng === 0 && currentLocation.lat === 0))
+      return;
 
     // initialize map
     map.current = new mapboxgl.Map({
-      container: mapContainer.current,
+      container: mapContainer.current!,
       style: 'mapbox://styles/aferrarifirmo/cl8hbvmi3001415o9hxsj0b3l',
       center: currentLocation,
       zoom: 4,
@@ -44,7 +50,7 @@ function Map({ currentLocation, addNew }) {
     });
 
     document
-      .getElementById('geocoder')
+      .getElementById('geocoder')!
       .appendChild(geocoder.onAdd(map.current));
 
     // custom styles inside switcher
@@ -91,43 +97,44 @@ function Map({ currentLocation, addNew }) {
   }, [campgrounds, currentLocation]);
 
   useEffect(() => {
-    if (currentLocation.length) {
+    if (currentLocation !== undefined) {
       // creates and renders a marker for each campground
-      campgrounds.forEach((campground) => {
-        const longitude = JSON.parse(campground.location.longitude);
-        const latitude = JSON.parse(campground.location.latitude);
-        const id = campground._id;
+      Array.isArray(campgrounds) &&
+        campgrounds.forEach((campground) => {
+          const longitude = campground.location.lng;
+          const latitude = campground.location.lat;
+          const id = campground._id;
 
-        const pin = document.createElement('div');
-        pin.className = 'marker';
-        pin.id = `${id}`;
+          const pin = document.createElement('div');
+          pin.className = 'marker';
+          pin.id = `${id}`;
 
-        new mapboxgl.Marker(pin, { offset: [0, -20] })
-          .setLngLat([longitude, latitude])
-          .addTo(map.current);
-
-        // add a popup on click ONLY *important*
-        // if we add a popup to each marker when we create it
-        // it will download every image from the FB storage everytime the markers are rendered
-        // the storage downloads are limited so we'll loose access to images as soon as we reach the limit
-
-        pin.addEventListener('click', async () => {
-          const name = campground.name;
-          const description = campground.description;
-          const image = campground.image;
-          await getCampgroundById(pin.id);
-          new mapboxgl.Popup({ offset: 30 }) // add popups
+          new mapboxgl.Marker(pin, { offset: [0, -20] })
             .setLngLat([longitude, latitude])
-            .setHTML(
-              `
+            .addTo(map.current!);
+
+          // add a popup on click ONLY *important*
+          // if we add a popup to each marker when we create it
+          // it will download every image from the FB storage everytime the markers are rendered
+          // the storage downloads are limited so we'll loose access to images as soon as we reach the limit
+
+          pin.addEventListener('click', async () => {
+            const name = campground.name;
+            const description = campground.description;
+            const image = campground.image;
+            await getCampgroundById(pin.id);
+            new mapboxgl.Popup({ offset: 30 }) // add popups
+              .setLngLat([longitude, latitude])
+              .setHTML(
+                `
               <img src="${image}">
               <h3>${name}</h3>
               <p>${description}</p>
               `
-            )
-            .addTo(map.current);
+              )
+              .addTo(map.current!);
+          });
         });
-      });
     }
   }, [campgrounds, currentLocation]);
 
@@ -147,4 +154,5 @@ function Map({ currentLocation, addNew }) {
   );
 }
 
-export default Map;
+export default Maps;
+

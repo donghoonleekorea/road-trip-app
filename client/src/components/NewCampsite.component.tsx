@@ -4,22 +4,26 @@ import { addNewCampground } from '../Services';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { useState } from 'react';
 import { v4 } from 'uuid';
-import { StringDecoder } from 'string_decoder';
 
-const storage = require('../firebase');
+import storage from '../firebase';
+import mapboxgl, { LngLat } from 'mapbox-gl';
 const CloseButton = require('../assets/add-button.svg');
 
 type Props = {
-  setAddNew: React.Dispatch<React.SetStateAction<Boolean>>;
-  setModal: React.Dispatch<React.SetStateAction<Boolean>>;
-  addNew: Boolean;
-  currentLocation: number[];
+  setAddNew: React.Dispatch<React.SetStateAction<boolean>>;
+  setModal: React.Dispatch<React.SetStateAction<boolean>>;
+  addNew: boolean;
+  currentLocation: LngLat;
 };
 
-const NewCampsite = ({ currentLocation, setModal, setAddNew, addNew }: Props) => {
-
+const NewCampsite = ({
+  currentLocation,
+  setModal,
+  setAddNew,
+  addNew,
+}: Props) => {
   const [imageUpload, setImageUpload] = useState<any>(null);
-  const [coordinates, setCoordinates] = useState([2, 41.45]);
+  const [coordinates, setCoordinates] = useState(new mapboxgl.LngLat(2, 41.45));
   const [buttonText, setButtonText] = useState('Create');
 
   const uploadFile = async () => {
@@ -34,18 +38,18 @@ const NewCampsite = ({ currentLocation, setModal, setAddNew, addNew }: Props) =>
     try {
       setButtonText('Creating...');
       const pointer = document.getElementById('create-button');
-      pointer && pointer.setAttribute("style", "cursor: wait");
+      pointer && pointer.setAttribute('style', 'cursor: wait');
       setAddNew(true);
       e.preventDefault();
       const url = await uploadFile();
-      const newCampround = {
+      const newCampground = {
         name: e.target[0].value,
         description: e.target[1].value,
-        location: { longitude: String(coordinates[0]), latitude: String(coordinates[1]) },
-        image: url,
+        location: new mapboxgl.LngLat(coordinates.lng, coordinates.lat),
+        image: url!,
       };
-      console.log(newCampround);
-      addNewCampground(newCampround);
+      console.log(newCampground);
+      addNewCampground(newCampground);
       e.target[0].value = '';
       e.target[1].value = '';
       e.target[4].value = '';
@@ -82,13 +86,13 @@ const NewCampsite = ({ currentLocation, setModal, setAddNew, addNew }: Props) =>
             <p className='input-label'>Give it a name</p>
             <input
               placeholder='Insert a name for this campground'
-              required={true}
+              required
             ></input>
             <p className='input-label'>Give it a description</p>
             <textarea
               type='text'
               placeholder='Insert a description for this location'
-              required={true}
+              required
             ></textarea>
             <p className='input-label'>Choose an image</p>
             <FileInput setImageUpload={setImageUpload}></FileInput>
@@ -110,6 +114,4 @@ const NewCampsite = ({ currentLocation, setModal, setAddNew, addNew }: Props) =>
 };
 
 export default NewCampsite;
-
-
 
