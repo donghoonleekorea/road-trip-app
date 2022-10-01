@@ -2,8 +2,8 @@ import mongoose from './index';
 export interface ICampground {
     name: string;
     location: {
-        longitude: string;
-        latitude: string;
+        lon: number;
+        lat: number;
     };
     description: string;
     image: string;

@@ -68,13 +68,14 @@ const NewCampsite = ({
           <h2 id='add-new'>Add a new campground</h2>
         </>
         <div className='close-button-div'>
-          <CloseButton
+          <img
+            src={CloseButton}
             type='button'
             id='close-button'
             onClick={() => {
               setModal(false);
             }}
-          ></CloseButton>
+          ></img>
         </div>
       </div>
       <fieldset disabled={addNew}>

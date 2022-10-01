@@ -9,8 +9,8 @@ const AddButton = require('./assets/add-button.svg');
 const RoadTripLogo = require('./assets/road-trip-logo.png');
 
 function App() {
-  const [modal, setModal] = useState<boolean>(false);
-  const [addNew, setAddNew] = useState<boolean>(false);
+  const [modal, setModal] = useState(false);
+  const [addNew, setAddNew] = useState(false);
   const [currentLocation, setCurrentLocation] = useState<LngLat>(
     new mapboxgl.LngLat(0, 0)
   );
@@ -51,21 +51,23 @@ function App() {
         addNew={addNew}
       ></Maps>
       <div className='add-button-div'>
-        <AddButton
+        <img
+          src={AddButton}
+          alt='Add Campsite'
           title='Add Campsite'
           type='button'
           id='add-button'
-          onClick={setModal}
-        ></AddButton>
+          onClick={()=> setModal(!modal)}
+        ></img>
       </div>
       {modal && (
         <div>
-          <NewCampsite
+           <NewCampsite
             currentLocation={currentLocation}
             addNew={addNew}
             setAddNew={setAddNew}
             setModal={setModal}
-          ></NewCampsite>
+          ></NewCampsite> 
         </div>
       )}
     </main>
@@ -73,6 +75,4 @@ function App() {
 }
 
 export default App;
-
-
 
