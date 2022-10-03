@@ -2,7 +2,7 @@ import FileInput from './FileInput.component';
 import LocationInput from './LocationInput.component';
 import { addNewCampground } from '../Services';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { v4 } from 'uuid';
 
 import storage from '../firebase';
@@ -26,6 +26,8 @@ const NewCampsite = ({
   const [coordinates, setCoordinates] = useState(new mapboxgl.LngLat(2, 41.45));
   const [buttonText, setButtonText] = useState('Create');
 
+  const nameRef = useRef<HTMLInputElement | undefined>();
+  const descriptionRef = useRef<HTMLTextAreaElement>();
   const uploadFile = async () => {
     if (imageUpload === null) return;
     const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
@@ -34,7 +36,7 @@ const NewCampsite = ({
     return url;
   };
 
-  const submitHandler = async (e: any) => {
+  const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       setButtonText('Creating...');
       const pointer = document.getElementById('create-button');
@@ -43,16 +45,16 @@ const NewCampsite = ({
       e.preventDefault();
       const url = await uploadFile();
       const newCampground = {
-        name: e.target[0].value,
-        description: e.target[1].value,
+        name: nameRef.current!.value,
+        description: descriptionRef.current!.value,
         location: new mapboxgl.LngLat(coordinates.lng, coordinates.lat),
         image: url!,
       };
       console.log(newCampground);
       addNewCampground(newCampground);
-      e.target[0].value = '';
-      e.target[1].value = '';
-      e.target[4].value = '';
+      
+      nameRef.current!.value = '';
+      descriptionRef.current!.value = '';
       setButtonText('Create');
       setModal(false);
       setAddNew(false);
@@ -69,13 +71,14 @@ const NewCampsite = ({
         </>
         <div className='close-button-div'>
           <img
+            alt='close button'
             src={CloseButton}
             type='button'
             id='close-button'
             onClick={() => {
               setModal(false);
             }}
-          ></img>
+          />
         </div>
       </div>
       <fieldset disabled={addNew}>
@@ -84,13 +87,23 @@ const NewCampsite = ({
           onSubmit={submitHandler}
         >
           <div className='sub-entry'>
-            <p className='input-label'>Give it a name</p>
+            <p
+              className='input-label'
+            >
+              Give it a name
+            </p>
             <input
+              ref={nameRef}
               placeholder='Insert a name for this campground'
               required
             ></input>
-            <p className='input-label'>Give it a description</p>
+            <p
+              className='input-label'
+            >
+              Give it a description
+            </p>
             <textarea
+              ref={descriptionRef}
               type='text'
               placeholder='Insert a description for this location'
               required
@@ -99,7 +112,9 @@ const NewCampsite = ({
             <FileInput setImageUpload={setImageUpload}></FileInput>
           </div>
           <div className='sub-entry'>
-            <p className='input-label'>
+            <p
+              className='input-label'
+            >
               Set the location by dragging the marker
             </p>
             <LocationInput
@@ -115,4 +130,14 @@ const NewCampsite = ({
 };
 
 export default NewCampsite;
+
+
+
+
+
+
+
+
+
+
 
