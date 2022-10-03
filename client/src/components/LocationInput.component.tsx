@@ -1,7 +1,7 @@
 import './LocationInput.styles.css';
 import React, { useRef, useEffect } from 'react';
 // eslint-disable-next-line import/no-webpack-loader-syntax
-import mapboxgl, {LngLat, Map} from 'mapbox-gl';
+import mapboxgl, { LngLat, Map } from 'mapbox-gl';
 import { MapboxStyleSwitcherControl } from 'mapbox-gl-style-switcher';
 import 'mapbox-gl-style-switcher/styles.css';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
@@ -11,9 +11,9 @@ mapboxgl.accessToken =
   'pk.eyJ1IjoiYWZlcnJhcmlmaXJtbyIsImEiOiJjaXVyYzlqYXYwMDBqMnptczczdjFsZ2RxIn0.zUalw0sjfenPlLL_HCMpTw';
 
 type Props = {
-  currentLocation: LngLat,
-  setCoordinates: React.Dispatch<React.SetStateAction<LngLat>>
-}
+  currentLocation: LngLat;
+  setCoordinates: React.Dispatch<React.SetStateAction<LngLat>>;
+};
 const LocationInput = ({ currentLocation, setCoordinates }: Props) => {
   const mapContainer = useRef(null);
   const map = useRef<Map | null>(null);
@@ -97,3 +97,4 @@ const LocationInput = ({ currentLocation, setCoordinates }: Props) => {
 };
 
 export default LocationInput;
+

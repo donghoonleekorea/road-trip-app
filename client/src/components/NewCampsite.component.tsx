@@ -26,8 +26,8 @@ const NewCampsite = ({
   const [coordinates, setCoordinates] = useState(new mapboxgl.LngLat(2, 41.45));
   const [buttonText, setButtonText] = useState('Create');
 
-  const nameRef = useRef<HTMLInputElement | undefined>();
-  const descriptionRef = useRef<HTMLTextAreaElement>();
+  const nameRef = useRef<HTMLInputElement | null>(null);
+  const descriptionRef = useRef<HTMLTextAreaElement | null>(null);
   const uploadFile = async () => {
     if (imageUpload === null) return;
     const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
