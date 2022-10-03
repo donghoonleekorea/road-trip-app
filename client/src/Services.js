@@ -14,7 +14,7 @@ export const addNewCampground = async (campground) => {
 
 export const getAllCamprounds = async () => {
   try {
-    console.log('Fetching camprounds from DB');
+    console.log('Fetching campgrounds from DB');
     const response = await fetch(process.env.REACT_APP_DB_URL + 'campgrounds/');
     return await response.json();
   } catch (err) {
