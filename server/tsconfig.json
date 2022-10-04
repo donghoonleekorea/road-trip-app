@@ -1,0 +1,21 @@
+{
+  "exclude": ["./dist","jest.config.js"],
+  "ts-node": {
+    "transpileOnly": true,
+    "files": true
+  },
+  // "typeRoots": ["./node_modules/@types"],
+  // "types": ["@types/jest", "@types/supertest"],  
+  "compilerOptions": {
+    "target": "ES2016",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "checkJs": true,
+    "outDir": "./dist",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "skipLibCheck": true
+  }
+}
