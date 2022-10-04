@@ -1,8 +1,9 @@
 import React, { useRef, useEffect, useState } from 'react';
 // eslint-disable-next-line import/no-webpack-loader-syntax
-import { getAllCampgrounds } from '../Services';
+import { getAllCampgrounds } from '../utils/ApiServices';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
-import { createMainMap, createMarkers } from '../helperFuns';
+import { createMainMap } from '../utils/mapsCreator';
+import { createMarkers } from '../utils/markersCreator';
 
 function Map({ currentLocation, addNew }) {
   const mapContainer = useRef(null);

@@ -3,7 +3,8 @@ import React, { useRef, useEffect } from 'react';
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import 'mapbox-gl-style-switcher/styles.css';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
-import { draggableMarker, createInputMap } from '../helperFuns';
+import { createInputMap } from '../utils/mapsCreator';
+import { draggableMarker } from '../utils/helperFuncs';
 
 const LocationInput = ({ currentLocation, setCoordinates }) => {
   const mapContainer = useRef(null);

@@ -13,3 +13,4 @@ export const switcherStyles = [
     uri: 'mapbox://styles/mapbox/satellite-streets-v11',
   },
 ];
+
