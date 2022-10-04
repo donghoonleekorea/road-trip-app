@@ -34,13 +34,13 @@ function App() {
         <img src={RoadTripLogo} alt='road-trip-app-logo' id='logo'></img>
         <div id='heading'><h2>Road trip - Campgrounds</h2></div>
       </header>
-      <Map currentLocation={currentLocation} setCurrentLocation={setCurrentLocation} addNew={addNew}></Map>
+      <Map currentLocation={currentLocation} setCurrentLocation={setCurrentLocation} addNew={addNew}/>
       <div className='add-button-div'>
-        <AddButton title='Add Campsite' type='button' id='add-button' onClick={setModal}></AddButton>
+        <AddButton title='Add Campsite' type='button' id='add-button' onClick={setModal}/>
       </div>
       { modal && 
         <div>
-          <NewCampsite currentLocation={currentLocation} addNew={addNew} setAddNew={setAddNew} setModal={setModal}></NewCampsite>
+          <NewCampsite currentLocation={currentLocation} addNew={addNew} setAddNew={setAddNew} setModal={setModal}/>
         </div>
       }
     </main>

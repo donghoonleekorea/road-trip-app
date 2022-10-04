@@ -12,7 +12,7 @@ export const addNewCampground = async (campground) => {
   }
 };
 
-export const getAllCamprounds = async () => {
+export const getAllCampgrounds = async () => {
   try {
     console.log('Fetching campgrounds from DB');
     const response = await fetch(process.env.REACT_APP_DB_URL + 'campgrounds/');
