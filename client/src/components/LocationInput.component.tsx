@@ -40,6 +40,7 @@ const LocationInput = ({ currentLocation, setCoordinates }: Props) => {
       new MapboxGeocoder({
         accessToken: mapboxgl.accessToken,
         mapboxgl: mapboxgl,
+        marker: false
       })
     );
 

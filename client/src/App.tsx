@@ -20,9 +20,11 @@ function App() {
   };
 
   const getCoordinates = (e: GeolocationPosition) => {
+    console.log(e);
     setCurrentLocation(
       new mapboxgl.LngLat(e.coords.longitude, e.coords.latitude)
     );
+    
   };
 
   const locationDenied = () => {
@@ -56,6 +58,7 @@ function App() {
           alt='Add Campsite'
           title='Add Campsite'
           type='button'
+          data-testid='button'
           id='add-button'
           onClick={()=> setModal(!modal)}
         ></img>
