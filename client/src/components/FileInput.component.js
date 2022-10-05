@@ -16,7 +16,7 @@ const FileInput = ({ setImageUpload }) => {
   }, [selectedFile]);
 
   const onSelectFile = (e) => {
-    if (!e.target.files) {
+      if (!e.target.files) {
       setSelectedFile(undefined);
       return;
     }
@@ -27,6 +27,7 @@ const FileInput = ({ setImageUpload }) => {
   return (
     <div className='file-input-container'>
       <input
+        data-testid='image-input'
         id='choose-file'
         type='file'
         accept='.jpg, .jpeg, .png, .gif'

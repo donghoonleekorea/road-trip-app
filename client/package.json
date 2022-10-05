@@ -6,7 +6,6 @@
     "@mapbox/mapbox-gl-geocoder": "^5.0.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
     "firebase": "^9.10.0",
     "mapbox-gl": "^2.10.0",
     "mapbox-gl-controls": "^2.3.5",
@@ -22,7 +21,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --coverage",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -44,6 +43,8 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/dom": "^8.18.1",
+    "@testing-library/user-event": "^14.4.3",
     "msw": "^0.47.3"
   }
 }

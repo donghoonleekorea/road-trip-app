@@ -1,24 +1,14 @@
 import FileInput from './FileInput.component';
 import LocationInput from './LocationInput.component';
 import { addNewCampground } from '../utils/ApiServices';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { useState } from 'react';
-import storage from '../firebase';
 import { ReactComponent as CloseButton } from '../assets/add-button.svg';
-import { v4 } from 'uuid';
+import {uploadFile} from '../utils/helperFuncs'
 
 const NewCampsite = ({ currentLocation, setModal, setAddNew, addNew }) => {
   const [imageUpload, setImageUpload] = useState(null);
   const [coordinates, setCoordinates] = useState([2, 41.45]);
   const [buttonText, setButtonText] = useState('Create');
-
-  const uploadFile = async () => {
-    if (imageUpload === null) return;
-    const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
-    const snapshot = await uploadBytes(imageRef, imageUpload);
-    const url = await getDownloadURL(snapshot.ref);
-    return url;
-  };
 
   const submitHandler = async (e) => {
     try {
@@ -27,7 +17,8 @@ const NewCampsite = ({ currentLocation, setModal, setAddNew, addNew }) => {
       pointer.style.cursor = 'wait';
       setAddNew(true);
       e.preventDefault();
-      const url = await uploadFile();
+      //uploadFile returns url of image in FB
+      const url = await uploadFile(imageUpload);
       const newCampround = {
         name: e.target[0].value,
         description: e.target[1].value,
@@ -83,7 +74,7 @@ const NewCampsite = ({ currentLocation, setModal, setAddNew, addNew }) => {
             <p className='input-label'>Choose an image</p>
             <FileInput
               setImageUpload={setImageUpload}
-              required={true}
+              required
             ></FileInput>
           </div>
           <div className='sub-entry'>

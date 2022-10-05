@@ -3,7 +3,7 @@ import React, { useRef, useEffect } from 'react';
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import 'mapbox-gl-style-switcher/styles.css';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
-import { createInputMap } from '../utils/mapsCreator';
+import { createInputMap } from '../utils/maps';
 import { draggableMarker } from '../utils/helperFuncs';
 
 const LocationInput = ({ currentLocation, setCoordinates }) => {
@@ -13,7 +13,7 @@ const LocationInput = ({ currentLocation, setCoordinates }) => {
   useEffect(() => {
     createInputMap(map, mapContainer, currentLocation);
 
-    // define properties of the draggable marker
+    // define properties of draggable marker
     let pin = document.createElement('div');
     pin.className = 'marker';
 
