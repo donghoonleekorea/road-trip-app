@@ -1,3 +1,5 @@
+import { Map } from 'mapbox-gl';
+import { ForwardedRef, RefObject } from 'react';
 import {
   initializeMap,
   addSearchBar,
@@ -6,13 +8,16 @@ import {
   addZoomAndRotationControl,
   addScale,
 } from './mapboxFunctions';
-
-export const createMainMap = (map, mapContainer, currentLocation) => {
+import { Location } from '../customTypes';
+export const createMainMap = (
+  map: React.MutableRefObject<Map | null>,
+  mapContainer: React.MutableRefObject<HTMLElement | null>,
+  currentLocation: Location
+) => {
   map.current = initializeMap(mapContainer, currentLocation);
-
   // Add SearchBar
   document
-    .getElementById('geocoder')
+    .getElementById('geocoder')!
     .appendChild(addSearchBar().onAdd(map.current));
 
   addSwitcherControl(map.current);
@@ -22,7 +27,11 @@ export const createMainMap = (map, mapContainer, currentLocation) => {
   return map.current;
 };
 
-export const createInputMap = (map, mapContainer, currentLocation) => {
+export const createInputMap = (
+  map: React.MutableRefObject<Map | null>,
+  mapContainer: React.MutableRefObject<HTMLElement | null>,
+  currentLocation: Location
+) => {
   map.current = initializeMap(mapContainer, currentLocation);
 
   const searchBar = addSearchBar(map.current);

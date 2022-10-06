@@ -1,9 +1,11 @@
 import './FileInput.styles.css';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-const FileInput = ({ setImageUpload }) => {
-  const [selectedFile, setSelectedFile] = useState();
-  const [preview, setPreview] = useState();
+type Props = { setImageUpload: React.Dispatch<React.SetStateAction<File | null>>}
+
+const FileInput = ({ setImageUpload }: Props) => {
+  const [selectedFile, setSelectedFile] = useState<File>();
+  const [preview, setPreview] = useState<string>();
 
   useEffect(() => {
     if (!selectedFile) {
@@ -15,13 +17,13 @@ const FileInput = ({ setImageUpload }) => {
     return () => URL.revokeObjectURL(objectUrl);
   }, [selectedFile]);
 
-  const onSelectFile = (e) => {
+  const onSelectFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) {
       setSelectedFile(undefined);
       return;
     }
     setSelectedFile(e.target.files[0]);
-    setImageUpload(e.currentTarget.files[0]);
+    setImageUpload(e.currentTarget.files![0]);
   };
 
   return (

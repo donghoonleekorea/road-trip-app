@@ -1,25 +1,26 @@
 import './App.css';
-import Map from './components/Map.component';
+import Maps from './components/Maps.component';
 import NewCampsite from './components/NewCampsite.component';
 import { ReactComponent as AddButton } from './assets/add-button.svg';
 import RoadTripLogo from './assets/road-trip-logo.png';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Location } from './customTypes';
 
 function App() {
   const [modal, setModal] = useState(false);
   const [addNew, setAddNew] = useState(false);
-  const [currentLocation, setCurrentLocation] = useState([]);
+  const [currentLocation, setCurrentLocation] = useState<Location | null>(null);
 
   const getCurrentLocation = () => {
     navigator.geolocation.getCurrentPosition(getCoordinates, locationDenied);
   };
 
-  const getCoordinates = (e) => {
-    setCurrentLocation([e.coords.longitude, e.coords.latitude]);
+  const getCoordinates = (e: GeolocationPosition) => {
+    setCurrentLocation({ lon: e.coords.longitude, lat: e.coords.latitude });
   };
 
   const locationDenied = () => {
-    setCurrentLocation([0, 44]);
+    setCurrentLocation({ lon: 0, lat: 44 });
   };
 
   useEffect(() => {
@@ -39,9 +40,8 @@ function App() {
           <h2>Road trip - Campgrounds</h2>
         </div>
       </header>
-      <Map
-        currentLocation={currentLocation}
-        setCurrentLocation={setCurrentLocation}
+      <Maps
+        currentLocation={currentLocation!}
         addNew={addNew}
       />
       <div className='add-button-div'>
@@ -55,7 +55,7 @@ function App() {
       {modal && (
         <div>
           <NewCampsite
-            currentLocation={currentLocation}
+            currentLocation={currentLocation!}
             addNew={addNew}
             setAddNew={setAddNew}
             setModal={setModal}
@@ -67,3 +67,4 @@ function App() {
 }
 
 export default App;
+

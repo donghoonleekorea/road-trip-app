@@ -1,4 +1,6 @@
-export const addNewCampground = async (campground) => {
+import { Campground } from '../customTypes'
+
+export const addNewCampground = async (campground: Campground): Promise<Campground | void> => {
   try {
     const response = await fetch(
       process.env.REACT_APP_DB_URL + 'campgrounds/',
@@ -15,7 +17,7 @@ export const addNewCampground = async (campground) => {
   }
 };
 
-export const getAllCampgrounds = async () => {
+export const getAllCampgrounds = async (): Promise<Campground[] | void> => {
   try {
     console.log('Fetching campgrounds from DB');
     const response = await fetch(process.env.REACT_APP_DB_URL + 'campgrounds/');
@@ -26,7 +28,7 @@ export const getAllCampgrounds = async () => {
   }
 };
 
-export const getCampgroundById = async (id) => {
+export const getCampgroundById = async (id: string): Promise<Campground | void> => {
   try {
     const response = await fetch(
       process.env.REACT_APP_DB_URL + 'campgrounds/' + id
@@ -37,4 +39,7 @@ export const getCampgroundById = async (id) => {
     alert('Unable to get Campground');
   }
 };
+
+
+
 

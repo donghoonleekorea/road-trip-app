@@ -1,15 +1,21 @@
 import './LocationInput.styles.css';
-import { useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import 'mapbox-gl-style-switcher/styles.css';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import { createInputMap } from '../utils/mapsMaker';
 import { draggableMarker } from '../utils/mapboxFunctions';
 import 'mapbox-gl-style-switcher/styles.css';
+import { Location } from '../customTypes';
+import { Map } from 'mapbox-gl';
 
-const LocationInput = ({ currentLocation, setCoordinates }) => {
+type Props = {
+  currentLocation: Location;
+  setCoordinates: React.Dispatch<React.SetStateAction<number[]>>;
+};
+const LocationInput = ({ currentLocation, setCoordinates }: Props) => {
   const mapContainer = useRef(null);
-  const map = useRef(null);
+  const map = useRef<Map | null>(null);
 
   useEffect(() => {
     // Create the input map, and obtain the searchBar, and userLocation to use later
@@ -23,7 +29,7 @@ const LocationInput = ({ currentLocation, setCoordinates }) => {
       marker.setLngLat(e.result.center);
     });
 
-    userLocation.on('geolocate', (e) => {
+    userLocation.on('geolocate', (e: any) => {
       setTimeout(() => {
         marker.setLngLat([e.coords.longitude, e.coords.latitude]);
       }, 1500);
@@ -35,10 +41,10 @@ const LocationInput = ({ currentLocation, setCoordinates }) => {
 
     // create a draggable marker on the map
     const marker = draggableMarker(
-      currentLocation[0],
-      currentLocation[1],
+      currentLocation.lon as number,
+      currentLocation.lat as number,
       pin,
-      map.current
+      map.current as Map
     );
     // get the coordinates from the position where the pin was dragged to
     const getCoordinates = () => {
