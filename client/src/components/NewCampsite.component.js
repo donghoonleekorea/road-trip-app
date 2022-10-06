@@ -77,6 +77,7 @@ const NewCampsite = ({ currentLocation, setModal, setAddNew, addNew }) => {
               required
             />
           </div>
+          {/* <div className='space-middle'>space-middle</div> */}
           <div className='sub-entry'>
             <p className='input-label'>
               Set the location by dragging the marker
@@ -88,6 +89,7 @@ const NewCampsite = ({ currentLocation, setModal, setAddNew, addNew }) => {
             />
           </div>
           <button id='create-button'>{buttonText}</button>
+          <div className='space-bottom'>space-bottom</div>
         </form>
       </fieldset>
     </main>
