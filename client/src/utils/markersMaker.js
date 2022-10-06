@@ -1,7 +1,8 @@
-import { createPin, nonDraggableMarker, renderPopUp } from './helperFuncs';
+import { nonDraggableMarker, renderPopUp } from './mapboxFunctions';
+import { createPin } from './helperFunctions';
 import { getCampgroundById } from './ApiServices';
 
-export const createMarkers = (campgrounds, map) => {
+export const createMarkersForCampgrounds = (campgrounds, map) => {
   campgrounds.forEach((campground) => {
     const longitude = JSON.parse(campground.location.longitude);
     const latitude = JSON.parse(campground.location.latitude);

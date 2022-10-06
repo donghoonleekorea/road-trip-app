@@ -1,5 +1,5 @@
 import { campground } from './mocks/mocks';
-import { createPin } from '../utils/helperFuncs';
+import { createPin } from '../utils/mapboxFunctions';
 
 describe('createPin function', () => {
   const pin = createPin(campground);

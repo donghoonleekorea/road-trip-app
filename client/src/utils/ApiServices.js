@@ -37,3 +37,4 @@ export const getCampgroundById = async (id) => {
     alert('Unable to get Campground');
   }
 };
+

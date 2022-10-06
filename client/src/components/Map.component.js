@@ -2,8 +2,8 @@ import React, { useRef, useEffect, useState } from 'react';
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import { getAllCampgrounds } from '../utils/ApiServices';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
-import { createMainMap } from '../utils/maps';
-import { createMarkers } from '../utils/markers';
+import { createMainMap } from '../utils/mapsMaker';
+import { createMarkersForCampgrounds } from '../utils/markersMaker';
 
 function Map({ currentLocation, addNew }) {
   const mapContainer = useRef(null);
@@ -27,7 +27,7 @@ function Map({ currentLocation, addNew }) {
 
   useEffect(() => {
     // creates and renders a marker for each campground
-    currentLocation.length && createMarkers(campgrounds, map);
+    currentLocation.length && createMarkersForCampgrounds(campgrounds, map);
   }, [campgrounds, currentLocation]);
 
   return (

@@ -1,24 +1,15 @@
 import mapboxgl from 'mapbox-gl';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import storage from '../firebase';
-import { v4 } from 'uuid';
+import 'mapbox-gl-style-switcher/styles.css';
+import { MapboxStyleSwitcherControl } from 'mapbox-gl-style-switcher';
+import { switcherStyles } from './switcherStyles';
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
 
-// Functions supporting NewCampsite.componentjs, maps.js, and markers.js
+//1. Map Functions
+//2. Marker Functions
 
-
-//uploadFile is used in newCampsite.component. Uploads file to FB
-export const uploadFile = async (imageUpload) => {
-  if (imageUpload === null) return;
-  const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
-  const snapshot = await uploadBytes(imageRef, imageUpload);
-  const url = await getDownloadURL(snapshot.ref);
-  return url;
-};
-
-//Next functions help maps.js
+//1. Map Functions
 export const initializeMap = (mapContainer, currentLocation) => {
   return new mapboxgl.Map({
     container: mapContainer.current,
@@ -28,16 +19,25 @@ export const initializeMap = (mapContainer, currentLocation) => {
   });
 };
 
-export const mapSearchBar = () => {
-  return new MapboxGeocoder({
+export const addSearchBar = (map) => {
+  const geocoder = new MapboxGeocoder({
     accessToken: mapboxgl.accessToken,
     mapboxgl: mapboxgl,
     marker: false,
   });
+  map && map.addControl(geocoder);
+  return geocoder;
 };
 
-export const locationControl = () => {
-  return new mapboxgl.GeolocateControl({
+export const addSwitcherControl = (map) => {
+  return map.addControl(new MapboxStyleSwitcherControl(switcherStyles));
+};
+
+export const addZoomAndRotationControl = (map) => {
+  return map.addControl(new mapboxgl.NavigationControl());
+};
+export const addUserLocationControl = (map) => {
+  const userLocationControl = new mapboxgl.GeolocateControl({
     positionOptions: {
       enableHighAccuracy: true,
     },
@@ -46,17 +46,20 @@ export const locationControl = () => {
     // Draw an arrow next to the location dot to indicate which direction the device is heading.
     showUserHeading: true,
   });
+  map.addControl(userLocationControl);
+  return userLocationControl;
 };
 
-//Next functions help markers.js
-export const createPin = (campground) => {
-  const id = campground._id;
-  const pin = document.createElement('div');
-  pin.className = 'marker';
-  pin.id = `${id}`;
-  return pin;
+export const addScale = (map) => {
+  const scale = new mapboxgl.ScaleControl({
+    maxWidth: 200,
+    unit: 'metric',
+  });
+  map.addControl(scale);
+  return scale;
 };
 
+// 2. Marker Functions
 export const draggableMarker = (lon, lat, pin, map) => {
   return new mapboxgl.Marker(pin, { draggable: true })
     .setLngLat([lon, lat])

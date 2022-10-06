@@ -16,7 +16,7 @@ const FileInput = ({ setImageUpload }) => {
   }, [selectedFile]);
 
   const onSelectFile = (e) => {
-      if (!e.target.files) {
+    if (!e.target.files) {
       setSelectedFile(undefined);
       return;
     }
@@ -48,3 +48,4 @@ const FileInput = ({ setImageUpload }) => {
 };
 
 export default FileInput;
+

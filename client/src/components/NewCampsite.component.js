@@ -3,7 +3,7 @@ import LocationInput from './LocationInput.component';
 import { addNewCampground } from '../utils/ApiServices';
 import { useState } from 'react';
 import { ReactComponent as CloseButton } from '../assets/add-button.svg';
-import {uploadFile} from '../utils/helperFuncs'
+import { uploadFile } from '../utils/helperFunctions';
 
 const NewCampsite = ({ currentLocation, setModal, setAddNew, addNew }) => {
   const [imageUpload, setImageUpload] = useState(null);
@@ -51,7 +51,7 @@ const NewCampsite = ({ currentLocation, setModal, setAddNew, addNew }) => {
             onClick={() => {
               setModal(false);
             }}
-          ></CloseButton>
+          />
         </div>
       </div>
       <fieldset disabled={addNew}>
@@ -75,7 +75,7 @@ const NewCampsite = ({ currentLocation, setModal, setAddNew, addNew }) => {
             <FileInput
               setImageUpload={setImageUpload}
               required
-            ></FileInput>
+            />
           </div>
           <div className='sub-entry'>
             <p className='input-label'>
@@ -84,8 +84,8 @@ const NewCampsite = ({ currentLocation, setModal, setAddNew, addNew }) => {
             <LocationInput
               currentLocation={currentLocation}
               setCoordinates={setCoordinates}
-              required={true}
-            ></LocationInput>
+              required
+            />
           </div>
           <button id='create-button'>{buttonText}</button>
         </form>
@@ -95,3 +95,4 @@ const NewCampsite = ({ currentLocation, setModal, setAddNew, addNew }) => {
 };
 
 export default NewCampsite;
+
