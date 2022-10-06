@@ -30,6 +30,7 @@ const FileInput = ({ setImageUpload }) => {
       <input id='choose-file'
       type='file'
       accept='.jpg, .jpeg, .png, .gif'
+      required
       // multiple
       onChange={onSelectFile}
       ></input>

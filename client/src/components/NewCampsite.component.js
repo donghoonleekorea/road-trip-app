@@ -60,7 +60,7 @@ const NewCampsite = ({ currentLocation, setModal, setAddNew, addNew }) => {
         <form type='submit' onSubmit={submitHandler}> 
           <div className="sub-entry">
             <p className="input-label">Give it a name</p>
-            <input placeholder='Insert a name for this campground' required={true}></input>
+            <input id='newCampground-input' placeholder='Insert a name for this campground' required={true}></input>
             <p className="input-label">Give it a description</p>
             <textarea type='text' placeholder='Insert a description for this location' required={true}></textarea>
             <p className="input-label">Choose an image</p>

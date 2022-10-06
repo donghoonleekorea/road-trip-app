@@ -3,6 +3,7 @@ html, body, #root {
   background: #d4d4d4;
   color: #252525;
   margin: 0;
+  min-width: 360px;
 }
 
 #heading {
@@ -21,7 +22,7 @@ html, body, #root {
   width: 100%;
   display: flex;
   height: 4.5rem;
-  padding: 5px;
+
   background-color: #fffdfd;
   box-shadow: 1px 2px 20px 10px rgba(50, 50, 50, 0.2);
   align-items: center;
@@ -51,11 +52,15 @@ html, body, #root {
 }
 
 .main-container {
-  height: 100%;
-  width: 100vw;
+  /* height: 100%; */
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-content: space-around;
+}
+
+.mapboxgl-canvas {
+  width: 100px;
 }
 
 #logo {
@@ -185,22 +190,41 @@ p {
   margin-bottom: 30px;
 }
 
-@media only screen and (max-width: 400px) {
+/* @media only screen and (max-width: 400px) {
   .add-button-div {
     align-self: center;
   }
   .mapboxgl-ctrl-geocoder--input {
     width:150px!important;
   }
-}
+} */
 
-@media only screen and (max-width: 450px) {
+@media only screen and (max-width: 600px) {
   #logo {
     margin-left: 0;
   }
+
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .geocoder{
+    margin-right: 20%;
+    width: 50%;
+  }
+  .sub-entry {
+    width: 100%;
+  }
+  .new-campground-container {
+    top: 0px;
+    bottom: 0px;
+    height: auto;
+  }
 }
 
-@media only screen and (max-width: 640px) {
+@media only screen and (max-width: 768px) {
   #heading {  
     color: white;
   }
