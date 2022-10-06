@@ -1,4 +1,4 @@
-const Router = require('express');
+import Router from 'express';
 const router = new Router();
 const controller = require('./controllers/campgrounds.controller');
 
