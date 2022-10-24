@@ -1,8 +1,9 @@
-const campground = require('../models/campgrounds.model');
+import Campground from '../models/campgrounds.model';
+import {Request, Response} from 'express'
 
-exports.getAllCampgrounds = async (req, res) => {
+const getAllCampgrounds = async (req: Request, res: Response) => {
   try {
-    const campgrounds = await campground.find({});
+    const campgrounds = await Campground.find({});
     console.log('All good from controller - getCamprounds');
     res.status(200);
     res.send(campgrounds);
@@ -12,9 +13,9 @@ exports.getAllCampgrounds = async (req, res) => {
   }
 }
 
-exports.getCampgroundById = async (req, res) => {
+const getCampgroundById = async (req: Request, res: Response) => {
   try {
-    const campgroundById = await campground.findById(req.params._id);
+    const campgroundById = await Campground.findById(req.params._id);
     console.log('All good from controller - getOneCampground');
     res.status(200);
     res.send(campgroundById);
@@ -22,23 +23,25 @@ exports.getCampgroundById = async (req, res) => {
     console.log('Error from controller - getOneCampground');
     res.status(400);
   }
-}
+};
 
-exports.postCampground = async (req, res) => {
+const postCampground = async (req: Request, res: Response) => {
   try {
-    await campground.create(req.body);
+    console.log(req.body)
+    await Campground.create(req.body);
     console.log('All good from controller - postCampround');
     res.status(201);
     res.send(req.body);
   } catch (err) {
-    console.log('Error from controller - postCampround');
+    console.log('this is req.body', req.body)
+    console.log('Error from controller - postCampround', err);
     res.status(400);
   }
-}
+};
 
-exports.removeCampground = async (req, res) => {
+const removeCampground = async (req, rereq: Request, res: Response) => {
   try {
-    await campground.findByIdAndDelete(req.params._id);
+    await Campground.findByIdAndDelete(req.params._id);
     console.log('All good from controller - removeCampground');
     res.status(200);
     res.send('Successfully deleted');
@@ -46,4 +49,9 @@ exports.removeCampground = async (req, res) => {
     console.log('Error from controller - removeCampground');
     res.status(400);
   }
-}
+};
+
+export default {getAllCampgrounds, getCampgroundById, postCampground, removeCampground}
+
+
+

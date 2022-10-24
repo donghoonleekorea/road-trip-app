@@ -34,11 +34,11 @@ function Maps({ currentLocation, addNew }: Props) {
     createMainMap(map, mapContainer, currentLocation);
   }, [campgrounds, currentLocation]);
 
-  // useEffect(() => {
-  //   // creates and renders a marker for each campground
-  //   currentLocation !== null &&
-  //     createMarkersForCampgrounds(campgrounds, map.current!);
-  // }, [campgrounds, currentLocation]);
+  useEffect(() => {
+    // creates and renders a marker for each campground
+    currentLocation !== null &&
+      createMarkersForCampgrounds(campgrounds, map.current!);
+  }, [campgrounds, currentLocation]);
 
   return (
     <main className='main-container'>

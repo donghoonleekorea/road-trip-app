@@ -10,7 +10,7 @@ export const addNewCampground = async (campground: Campground): Promise<Campgrou
         body: JSON.stringify(campground),
       }
     );
-    return response.json();
+    return await response.json();
   } catch (error) {
     console.log('Error from addNewCampround in Services');
     alert('Unable to add Campground');

@@ -25,7 +25,7 @@ const NewCampsite = ({ currentLocation, setModal, setAddNew, addNew }: Props) =>
       pointer!.style.cursor = 'wait';
       setAddNew(true);
       e.preventDefault();
-      //uploadFile returns url of image in FB
+      //uploadFile returns url of image in DB
       const url = await uploadFile(imageUpload!);
       const newCampground = {
         name: nameRef.current!.value,
@@ -34,7 +34,8 @@ const NewCampsite = ({ currentLocation, setModal, setAddNew, addNew }: Props) =>
         image: url as string,
       };
       console.log('this is theNewCampground', newCampground)
-      addNewCampground(newCampground);
+      const seeee = await addNewCampground(newCampground);
+      console.log('testiiiing', seeee)
       nameRef.current!.value = '';
       descriptionRef.current!.value = '';
       // e.target[4].value = '';
