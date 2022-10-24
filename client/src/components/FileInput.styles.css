@@ -7,13 +7,15 @@
 
 .preview-div {
   height: 25%;
+  width: 50%;
   /* display: flex; */
   /* align-self: flex-start; */
-  position: absolute;
+  /* position: absolute; */
   left: 0;
   /* right: -50px; */
   margin-top: 10%;
   margin-left: 0;
+
 }
 
 #preview-img {
@@ -33,7 +35,7 @@
 #create-button {
   position: flex;
   margin-top: 15px;
-  border: 1.5px solid #d14545;
+  border: 1.5px solid #d14545 ;
   color: #d14545;
   background-color: white;
   font-size: medium;

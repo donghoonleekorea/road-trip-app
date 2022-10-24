@@ -1,4 +1,6 @@
-html, body, #root {
+html,
+body,
+#root {
   font: 0.9rem sans-serif;
   background: #d4d4d4;
   color: #252525;
@@ -14,7 +16,7 @@ html, body, #root {
 .input-label {
   font-family: Arial, sans-serif;
   font-weight: bold;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 
 .header {
@@ -106,7 +108,7 @@ html, body, #root {
 
 .new-campground-container {
   margin-top: 20%;
-  position:absolute;
+  position: absolute;
   display: flex;
   flex-direction: column;
   padding: 4% 4% 4% 4%;
@@ -190,7 +192,7 @@ p {
     align-self: center;
   }
   .mapboxgl-ctrl-geocoder--input {
-    width:150px!important;
+    width: 150px !important;
   }
 }
 
@@ -198,10 +200,66 @@ p {
   #logo {
     margin-left: 0;
   }
+
+  fieldset {
+    height: 10%;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  .sub-entry {
+    width: 100%;
+    margin-top: 3%;
+  }
+  .new-campground-container {
+    top: 5%;
+    overflow-y: scroll;
+    height: 75%;
+  }
+
+  .space-bottom {
+    margin-bottom: 3%;
+    visibility: hidden;
+  }
+
+  .space-middle {
+    margin: 20% 0;
+    visibility: hidden;
+  }
+
+  .file-input-container {
+    margin-bottom: 15px;
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .preview-div {
+    width: 100%;
+    /* display: flex; */
+    /* align-self: flex-start; */
+    position: relative;
+    left: 0;
+    /* right: -50px; */
+    margin-top: 60px;
+    margin-left: 5%;
+  }
+
+  #preview-img {
+    border-radius: 3px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    overflow: hidden;
+  }
 }
 
 @media only screen and (max-width: 640px) {
-  #heading {  
-    color: white;
+  #heading {
+    visibility: hidden;
   }
 }
+
